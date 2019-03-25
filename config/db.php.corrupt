@@ -1,6 +1,6 @@
 <?php
 $dbf='db.sqlite';
-$dbf='/storage/emulated/0/www/public/json/db/db4.db';
+$dbf='../../json/db/db4.db';
 //var_dump([$dbf,realpath($dbf)]);
 
 return [

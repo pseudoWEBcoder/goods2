@@ -1,6 +1,6 @@
 <?php
 $dbf='db.sqlite';
-$dbf='/storage/emulated/0/www/public/json/db/db4.db';
+$dbf='/storage/emulated/0/Download/finpix20190317-0320.backup';
 //var_dump([$dbf,realpath($dbf)]);
 
 return [
