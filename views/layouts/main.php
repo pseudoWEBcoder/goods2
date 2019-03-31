@@ -1,14 +1,15 @@
 <?php
 
 /* @var $this \yii\web\View */
+
 /* @var $content string */
 
+use app\assets\AppAsset;
 use app\widgets\Alert;
-use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
-use app\assets\AppAsset;
 
 AppAsset::register($this);
 ?>
@@ -35,15 +36,41 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
+    $other = scandir($dir = Yii::getAlias('@app/controllers'));
+    if (is_array($other) && !empty($other))
+        foreach ($other as $index => $item) {
+            if (preg_match('/([A-Z0-9].+)Controller\.php/', $item, $matches)) {
+                $class = $matches[1];
+                $className = 'app\controllers\\' . $class . 'Controller';
+                if (!class_exists($className))
+                    continue;
+                $rf = new ReflectionClass(($className));
+                $subItem = ['label' => $class, 'url' => ['/' . mb_strtolower($class) . '/']];
+                $actions = $rf->getMethods();
+                $Actions = [];
+                foreach ($actions as $i => $action) {
+                    $name = $action->getName();
+
+                    if (preg_match('/action([A-Z].+)/', $name, $matches_name)) {
+                        $Actions[] = ['label' => $matches_name[1], 'url' => ['/' . mb_strtolower($class) . '/', mb_strtolower($matches_name[1])]];
+                    }
+                }
+                if (!empty($Actions))
+                    $subItem['items'] = $Actions;
+                $others [] = $subItem;
+            }
+        } else
+        $other = [];
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-['label' => 'Items', 'url' => ['/items/index']],
+            ['label' => 'Items', 'url' => ['/items/index']],
+            ['label' => 'Other', 'items' => $others],
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
+            ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')

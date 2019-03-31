@@ -12,14 +12,14 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'time')->textInput() ?>
+    <!-- --><? /*= $form->field($model, 'time')->textInput() */ ?>
 
     <?= $form->field($model, 'text')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'items_id')->textInput() ?>
+    <!-- --><? /*= $form->field($model, 'items_id')->textInput() */ ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <? /*= Html::submitButton('Save', ['class' => 'btn btn-success']) */ ?>
     </div>
 
     <?php ActiveForm::end(); ?>
