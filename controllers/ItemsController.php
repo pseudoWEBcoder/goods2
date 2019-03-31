@@ -6,6 +6,7 @@ use app\models\Comment;
 use app\models\CommentSearch;
 use app\models\Items;
 use app\models\ItemsSearch;
+use app\models\ItemStatuses;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\helpers\Html;
@@ -52,7 +53,7 @@ class ItemsController extends Controller
         ]);
     }
 
-    public function actionCommit($id)
+    public function actionCommit($id, $status = null)
     {
 //Yii::$app->response='json';
         $model = $this->findModel($id);
@@ -60,6 +61,9 @@ class ItemsController extends Controller
 //return $this->renderAjax($debug);
 //die(__FILE__.__LINE__);
         $model->commit = time();
+        $model->status_id = ItemStatuses::STATUS_OK;/*OK*/
+        if ($status == 'fail')
+            $model->status_id = ItemStatuses::STATUS_FAIL;/*OK*/
         if ($model->save()) {
             //return $this->redirect(['view', 'id' => $model->id]);
 
@@ -231,10 +235,11 @@ class ItemsController extends Controller
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
                 $dataProvider->query->andWhere(['items_id' => $model->id])->addOrderBy(['time' => SORT_DESC]);
                 return [
-                    'title' => "Create new comment" . __LINE__,
+                    'title' => ($title = "комментарии к  " . $model->name),
                     'content' => $this->renderAjax('/comment/create', [
                             'model' => $comment,
-                            'item' => $model
+                            'item' => $model,
+                            'title' => $title
                         ]) . $this->renderAjax('/comment/list', [
                             'searchModel' => $searchModel,
                             'dataProvider' => $dataProvider,

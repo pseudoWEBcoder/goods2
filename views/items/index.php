@@ -1,10 +1,10 @@
 <?php
-use yii\helpers\Url;
-use yii\helpers\Html;
-use yii\bootstrap\Modal;
-use kartik\grid\GridView;
-use johnitvn\ajaxcrud\CrudAsset; 
+
 use johnitvn\ajaxcrud\BulkButtonWidget;
+use johnitvn\ajaxcrud\CrudAsset;
+use kartik\grid\GridView;
+use yii\bootstrap\Modal;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ItemsSearch */
@@ -24,8 +24,8 @@ CrudAsset::register($this);
             'filterModel' => $searchModel,
             'pjax'=>true,
 'rowOptions' =>function($model){
-	if($model->commit)
-return ['class' => GridView::TYPE_SUCCESS];
+    if ($model->status)
+        return ['class' => $model->status->color/* GridView::TYPE_SUCCESS*/];
 else return [];},
             'columns' => require(__DIR__.'/_columns.php'),
             'toolbar'=> [

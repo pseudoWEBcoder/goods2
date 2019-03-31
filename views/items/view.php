@@ -1,9 +1,9 @@
 <?php
 
-use yii\widgets\DetailView;
-use yii\helpers\Url;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\helpers\VarDumper;
+use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Items */
@@ -43,6 +43,7 @@ $u,['role'=>'modal-remote'])],
  'product_type',
  'excise',
  'commit',
+     'status.text',
  ],
 'template' => function($attribute, $index, $widget){ 
 //your code for rendering here. e.g. 

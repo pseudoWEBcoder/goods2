@@ -1,8 +1,5 @@
 <?php
 
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
-
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Comment */
@@ -21,8 +18,8 @@ use yii\widgets\ActiveForm;
             <div class="panel-body">
                 <header class="text-left">
                     <!-- <div class="comment-user"><i class="fa fa-user"></i> That Guy</div>-->
-                    <time class="comment-date" datetime="16-12-2014 01:05"><i
-                                class="fa fa-clock-o"></i> <?= date('d.m.Y:h:i:s', $model->time) ?></time>
+                    <time class="comment-date text-muted" datetime=" <?= date('d.m.Y h:i:s', $model->time) ?>"><i
+                                class="fa fa-clock-o"></i> <?= date('d.m.Y h:i:s', $model->time) ?></time>
                 </header>
                 <div class="comment-post">
                     <p><?= $model->text ?></p>

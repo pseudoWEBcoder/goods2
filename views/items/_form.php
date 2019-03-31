@@ -1,4 +1,5 @@
 <?php
+
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -58,14 +59,21 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'excise')->textInput() ?>
 
     <?= $form->field($model, 'commit')->textInput() ?>
+    <?= $form->field($model, 'status_id')->widget(\kartik\select2\Select2::classname(), [
+        'data' => \yii\helpers\ArrayHelper::map(\app\models\ItemStatuses::find()->all(), 'id', 'text'),
+        'options' => ['placeholder' => 'выбрать  статус'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]) ?>
 
-  
-	<?php if (!Yii::$app->request->isAjax){ ?>
-	  	<div class="form-group">
-	        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-	    </div>
-	<?php } ?>
+
+    <?php if (!Yii::$app->request->isAjax) { ?>
+        <div class="form-group">
+            <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        </div>
+    <?php } ?>
 
     <?php ActiveForm::end(); ?>
-    
+
 </div>

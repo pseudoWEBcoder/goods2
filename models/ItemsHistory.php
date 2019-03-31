@@ -3,23 +3,32 @@
 namespace app\models;
 
 /**
- * This is the model class for table "comment".
+ * This is the model class for table "items_history".
  *
  * @property int $id
+ * @property int $items_id
  * @property int $time
  * @property string $text
- * @property int $items_id
+ * @property string $diff
  *
  * @property Items $items
  */
-class Comment extends \yii\db\ActiveRecord
+class ItemsHistory extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'comment';
+        return 'items_history';
+    }
+
+    public function beforeSave($insert)
+    {
+        if (empty($this->time))
+            if ($this->isNewRecord)
+                $this->time = time();
+        return parent::beforeSave($insert);
     }
 
     /**
@@ -28,20 +37,11 @@ class Comment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['time'/*, 'items_id'*/], 'integer'],
-            [['text'], 'string'],
+            [['items_id', 'time'], 'integer'],
+            [['text', 'diff'], 'string'],
             [['items_id'], 'exist', 'skipOnError' => true, 'targetClass' => Items::className(), 'targetAttribute' => ['items_id' => 'id']],
         ];
     }
-
-    public function beforeSave($insert)
-    {
-        if (is_null($this->time))
-            if ($this->isNewRecord)
-                $this->time = time();
-        return parent::beforeSave($insert);
-    }
-
 
     /**
      * {@inheritdoc}
@@ -50,9 +50,10 @@ class Comment extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'items_id' => 'Items ID',
             'time' => 'Time',
             'text' => 'Text',
-            'items_id' => 'Items ID',
+            'diff' => 'Diff',
         ];
     }
 
