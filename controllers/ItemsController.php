@@ -356,6 +356,7 @@ class ItemsController extends Controller
         $request = Yii::$app->request;
         $model = $this->findModel($id);
         $model->commit = null;
+        $model->status_id = null;
         $model->save();
 
         if ($request->isAjax) {

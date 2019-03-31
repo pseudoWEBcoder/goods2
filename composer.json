@@ -19,7 +19,8 @@
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0",
       "johnitvn/yii2-ajaxcrud": "*",
-      "kartik-v/yii2-widget-select2": "^2.1"
+      "kartik-v/yii2-widget-select2": "^2.1",
+      "dvizh/yii2-gallery": "@dev"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

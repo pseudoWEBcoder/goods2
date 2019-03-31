@@ -46,6 +46,17 @@ class Items extends \yii\db\ActiveRecord
         return 'items';
     }
 
+    function behaviors()
+    {
+        return [
+            'images' => [
+                'class' => 'dvizh\gallery\behaviors\AttachImages',
+                'mode' => 'gallery',
+                'quality' => 60,
+                'galleryId' => 'picture'
+            ],
+        ];
+    }
     /**
      * {@inheritdoc}
      */

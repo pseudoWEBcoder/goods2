@@ -64,7 +64,14 @@ $config = [
         */
     ],
     'params' => $params,
-'modules' => [ 'gridview' => [ 'class' => 'kartik\grid\Module', ], ],
+    'modules' => ['gridview' => ['class' => 'kartik\grid\Module',], 'gallery' => [
+        'class' => 'dvizh\gallery\Module',
+        'imagesStorePath' => dirname(dirname(__DIR__)) . '/web/images/store', //path to origin images
+        'imagesCachePath' => dirname(dirname(__DIR__)) . '/web/images/cache', //path to resized copies
+        'graphicsLibrary' => 'GD',
+        'placeHolderPath' => '@webroot/images/placeHolder.png',
+        'adminRoles' => ['administrator', 'admin', 'superadmin'],
+    ],],
 ];
 //var_dump(YII_ENV_DEV);
 if (YII_ENV_DEV) {
