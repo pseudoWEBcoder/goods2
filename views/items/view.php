@@ -98,4 +98,5 @@ echo newerton\fancybox\FancyBox::widget([
             }
         }
     ]) ?>
+    <?= $this->render('/comment/list', ['dataProvider' => new \yii\data\ActiveDataProvider(['query' => $model->getComments()])]) ?>
 </div>
