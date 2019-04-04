@@ -11,7 +11,14 @@ use yii\widgets\ActiveForm;
 <div class="items-form">
 
     <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
-
+    <?= \dvizh\gallery\widgets\Gallery::widget(
+        [
+            'model' => $model,
+            'previewSize' => '50x50',
+            'fileInputPluginLoading' => true,
+            'fileInputPluginOptions' => []
+        ]
+    ); ?>
     <?= $form->field($model, 'created')->textInput() ?>
 
     <?= $form->field($model, 'updated')->textInput() ?>
@@ -66,14 +73,7 @@ use yii\widgets\ActiveForm;
             'allowClear' => true
         ],
     ]) ?>
-    <?= \dvizh\gallery\widgets\Gallery::widget(
-        [
-            'model' => $model,
-            'previewSize' => '50x50',
-            'fileInputPluginLoading' => true,
-            'fileInputPluginOptions' => []
-        ]
-    ); ?>
+
 
     <?php if (!Yii::$app->request->isAjax) { ?>
         <div class="form-group">

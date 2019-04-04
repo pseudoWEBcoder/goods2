@@ -8,7 +8,25 @@ return [
          'class' => 'kartik\grid\CheckboxColumn',
          'width' => '20px',
      ],*/
-    'id',
+
+    [
+        'class' => '\kartik\grid\DataColumn',
+        'format' => 'raw',
+        'value' => /**
+         * @param $model \app\models\Items
+         * @param $key
+         * @param $w
+         */
+            function ($model, $key, $w) {
+                $images = $model->getImages();
+                //  foreach($images as $img) {
+                //retun url to full image
+                $a = Html::a(Html::img($images[0]->getUrl('30x30')), $images[0]->getUrl(), ['rel' => 'fancybox', 'title' => $model->name]);
+                return $a;
+//}
+            }
+
+    ], 'id',
     [
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'commit',

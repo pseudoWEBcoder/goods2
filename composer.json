@@ -20,7 +20,8 @@
         "yiisoft/yii2-swiftmailer": "~2.0.0",
       "johnitvn/yii2-ajaxcrud": "*",
       "kartik-v/yii2-widget-select2": "^2.1",
-      "dvizh/yii2-gallery": "@dev"
+        "dvizh/yii2-gallery": "@dev",
+        "newerton/yii2-fancybox": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
