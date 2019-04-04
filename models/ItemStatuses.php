@@ -18,6 +18,7 @@ class ItemStatuses extends \yii\db\ActiveRecord
     const STATUS_NEW = 2;
     const STATUS_OK = 3;
     const STATUS_FAIL = 4;
+    const STATUS_OPEN = 5;
 
     /**
      * {@inheritdoc}

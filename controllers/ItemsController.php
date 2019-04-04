@@ -53,6 +53,15 @@ class ItemsController extends Controller
         ]);
     }
 
+    public function actionDetail()
+    {
+        if (isset($_POST['expandRowKey'])) {
+            $model = \app\models\Items::findOne($_POST['expandRowKey']);
+            return $this->renderPartial('view', ['model' => $model]);
+        } else {
+            return '<div class="alert alert-danger">No data found</div>';
+        }
+    }
     public function actionCommit($id, $status = null)
     {
 //Yii::$app->response='json';
@@ -64,6 +73,8 @@ class ItemsController extends Controller
         $model->status_id = ItemStatuses::STATUS_OK;/*OK*/
         if ($status == 'fail')
             $model->status_id = ItemStatuses::STATUS_FAIL;/*OK*/
+        if ($status == 'open')
+            $model->status_id = ItemStatuses::STATUS_OPEN;/*OPEN*/
         if ($model->save()) {
             //return $this->redirect(['view', 'id' => $model->id]);
 

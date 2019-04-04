@@ -1,5 +1,6 @@
 <?php
 
+use kartik\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -8,7 +9,30 @@ return [
          'class' => 'kartik\grid\CheckboxColumn',
          'width' => '20px',
      ],*/
+    [
+        'class' => 'kartik\grid\ExpandRowColumn',
+        'width' => '50px',
+        'value' => function ($model, $key, $index, $column) {
+            return GridView::ROW_COLLAPSED;
+        },
+        // uncomment below and comment detail if you need to render via ajax
+        'detailUrl' => Url::to(['/items/detail']),
 
+        'headerOptions' => ['class' => 'kartik-sheet-style'],
+        'expandOneOnly' => true
+    ],
+    [
+
+        'format' => 'raw',
+        'value' => /**
+         * @param $model \app\models\Items
+         * @param $key
+         * @param $w
+         */
+            function ($model, $key, $w) {
+                return Html::tag('i', null, ['class' => $model->status->icon]);
+            }
+    ],
     [
         'class' => '\kartik\grid\DataColumn',
         'format' => 'raw',
@@ -35,10 +59,11 @@ return [
             $cn = $model->getComments()->count();
             return Html::a('<i class="glyphicon glyphicon-comment"></i>&nbsp; ' . ($cn > 0 ? Html::tag('span', $cn, ['class' => 'badge']) : '' . $cn),
                     ["comment", 'id' => $model->id], ['role' => 'modal-remote', 'class' => 'pull-left']) .
-                Html::a('<i class="glyphicon glyphicon-remove"></i>&nbsp; ' . (Html::tag('span', '', ['class' => 'badge'])),
+                Html::a('<i class="glyphicon glyphicon-open"></i>&nbsp; ' . (Html::tag('span', '', ['class' => 'badge'])),
+                    ["commit", 'id' => $model->id, 'status' => 'open'], ['role' => 'modal-remote', 'class' => 'pull-right']) . Html::a('<i class="glyphicon glyphicon-remove"></i>&nbsp; ' . (Html::tag('span', '', ['class' => 'badge'])),
                     ["commit", 'id' => $model->id, 'status' => 'fail'], ['role' => 'modal-remote', 'class' => 'pull-right text-danger']) .
                 Html::a('<i class="glyphicon glyphicon-check"></i>&nbsp; ' . (Html::tag('span', '', ['class' => 'badge'])),
-                    ["commit", 'id' => $model->id], ['role' => 'modal-remote', 'class' => 'pull-right']);
+                    ["commit", 'id' => $model->id], ['role' => 'modal-remote', 'class' => 'pull-right text-success']);
         }
     ],
     [

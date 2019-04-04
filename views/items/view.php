@@ -1,5 +1,6 @@
 <?php
 
+use app\models\searches\ItemsHistorySearch;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -41,7 +42,7 @@ echo newerton\fancybox\FancyBox::widget([
     ]
 ]);
 ?>
-<div class="items-view">
+<div class="items-view" style="overflow: scroll;">
     <?php
     $images = $model->getImages();
     foreach ($images as $img) {
@@ -98,5 +99,13 @@ echo newerton\fancybox\FancyBox::widget([
             }
         }
     ]) ?>
+    <h2>комментарии</h2>
     <?= $this->render('/comment/list', ['dataProvider' => new \yii\data\ActiveDataProvider(['query' => $model->getComments()])]) ?>
+
+    <?php
+    $searchModel = new ItemsHistorySearch();
+    $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+    $dataProvider->query->andFilterWhere(['items_id' => $model->id]);
+    echo $this->render('/items-history/index', ['searchModel' => $searchModel,
+        'dataProvider' => $dataProvider, 'h' => 2]) ?>
 </div>
