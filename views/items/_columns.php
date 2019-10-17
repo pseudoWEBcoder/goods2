@@ -24,6 +24,9 @@ return [
     [
 
         'format' => 'raw',
+        'attribute' => 'status_id',
+        //'filter' => ['да', 'нет'],
+        'filter' => \app\models\ItemStatuses::find()->select(['text', 'text'])->indexBy('id')->column(),
         'value' => /**
          * @param $model \app\models\Items
          * @param $key

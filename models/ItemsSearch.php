@@ -17,8 +17,9 @@ class ItemsSearch extends Items
     {
         return [
             [['id', 'created', 'updated', 'price', 'nds_sum', 'nds_rate', 'sum', 'receipt_id', 'nds18', 'nds10', 'calculation_type_sign', 'calculation_subject_sign', 'nds_no', 'payment_type', 'nds', 'nds_calculated10', 'nds_calculated18', 'payment_agent_by_product_type', 'product_type', 'excise', 'commit'], 'integer'],
-            [['quantity'], 'number'],
+            [['quantity', 'status_id'], 'number'],
             [['name', 'modifiers', 'properties'], 'safe'],
+            [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => ItemStatuses::className(), 'targetAttribute' => ['status_id' => 'id']],
         ];
     }
 
@@ -77,6 +78,7 @@ class ItemsSearch extends Items
             $table . 'product_type' => $this->product_type,
             $table . 'excise' => $this->excise,
             $table . 'commit' => $this->commit,
+            $table . 'status_id' => (empty($this->status_id) ? null : intval($this->status_id)),
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])

@@ -125,4 +125,28 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
+
+    /**
+     * Displays about page.
+     *
+     * @return string
+     */
+    public function actionMigrate()
+    {
+        $connection = Yii::$app->db;
+        $sql1 = file_get_contents(Yii::getAlias('@app/migrations/31-03-2019.sql'));
+        $transaction = $connection->beginTransaction();
+        try {
+            $connection->createCommand($sql1)->execute();
+            $transaction->commit();
+        } catch (\Exception $e) {
+            $transaction->rollBack();
+            throw $e;
+        } catch (\Throwable $e) {
+            $transaction->rollBack();
+            throw $e;
+        }
+        return $this->render('about');
+    }
+
 }
