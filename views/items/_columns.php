@@ -60,13 +60,13 @@ return [
         'format' => 'raw',
         'value' => function ($model, $key, $w) {
             $cn = $model->getComments()->count();
-            return Html::a('<i class="glyphicon glyphicon-comment"></i>&nbsp; ' . ($cn > 0 ? Html::tag('span', $cn, ['class' => 'badge']) : '' . $cn),
-                    ["comment", 'id' => $model->id], ['role' => 'modal-remote', 'class' => 'pull-left']) .
-                Html::a('<i class="glyphicon glyphicon-open"></i>&nbsp; ' . (Html::tag('span', '', ['class' => 'badge'])),
-                    ["commit", 'id' => $model->id, 'status' => 'open'], ['role' => 'modal-remote', 'class' => 'pull-right']) . Html::a('<i class="glyphicon glyphicon-remove"></i>&nbsp; ' . (Html::tag('span', '', ['class' => 'badge'])),
-                    ["commit", 'id' => $model->id, 'status' => 'fail'], ['role' => 'modal-remote', 'class' => 'pull-right text-danger']) .
-                Html::a('<i class="glyphicon glyphicon-check"></i>&nbsp; ' . (Html::tag('span', '', ['class' => 'badge'])),
-                    ["commit", 'id' => $model->id], ['role' => 'modal-remote', 'class' => 'pull-right text-success']);
+            return
+                Html::a('<i class="glyphicon glyphicon-comment"></i>&nbsp; ' . ($cn > 0 ? Html::tag('span', $cn, ['class' => 'badge']) : '' . $cn), ["comment", 'id' => $model->id], ['role' => 'modal-remote', 'class' => 'pull-left'])
+                . Html::a('<i class="glyphicon glyphicon-open"></i>&nbsp; ' . (Html::tag('span', '', ['class' => 'badge'])), ["commit", 'id' => $model->id, 'status' => 'open'], ['role' => 'modal-remote', 'class' => 'pull-right'])
+                . Html::a('<i class="glyphicon glyphicon-remove"></i>&nbsp; ' . (Html::tag('span', '', ['class' => 'badge'])), ["commit", 'id' => $model->id, 'status' => 'fail'], ['role' => 'modal-remote', 'class' => 'pull-right text-danger'])
+                .
+                Html::a('<i class="glyphicon glyphicon-check"></i>&nbsp; ' . (Html::tag('span', '', ['class' => 'badge'])), ["commit", 'id' => $model->id], ['role' => 'modal-remote', 'class' => 'pull-right text-success']) .
+                ($model->status_id == \app\models\ItemStatuses::STATUS_MARK ? '' : Html::a('<i class="glyphicon glyphicon-barcode"></i>&nbsp; ' . (Html::tag('span', '', ['class' => 'badge'])), ["commit", 'id' => $model->id, 'status' => 'mark'], ['role' => 'modal-remote', 'class' => 'pull-right text-muted']));
         }
     ],
     [
