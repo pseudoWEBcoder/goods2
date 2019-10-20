@@ -36,6 +36,29 @@ class ItemStatusesController extends Controller
      * Lists all ItemStatuses models.
      * @return mixed
      */
+public function actionRawsql()
+    {
+
+$sql = file_get_contents(Yii::getAlias('@app/migrations/31-03-2019.sql' ));
+ $SQL = str_replace(['INSERT INTO', 'CREATE TABLE'], ['INSERT OR IGNORE INTO', 'CREATE TABLE  IF NOT EXISTS'  ], $sql);
+//$ok=Yii::$app->db->createCommand($SQL)->queryAll();
+$connection=Yii::$app->db;
+$transaction = $connection->beginTransaction();
+try {
+    $connection->createCommand($SQL)->execute();
+    //.... other SQL executions
+    $transaction->commit();
+} catch (\Exception $e) {
+    $transaction->rollBack();
+    throw $e;
+} catch (\Throwable $e) {
+    $transaction->rollBack();
+    throw $e;
+}
+
+var_dump(get_defined_vars());
+        die('<hr> '.__FILE__.__LINE__);
+    }
     public function actionIndex()
     {
         $searchModel = new ItemStatusesSearch();

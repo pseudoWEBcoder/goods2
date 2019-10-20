@@ -49,6 +49,16 @@ echo newerton\fancybox\FancyBox::widget([
 ?>
 <div class="items-index">
     <div id="ajaxCrudDatatable">
+<?php $this->
+registerJsFile('./filters.js', 
+['yii\web\JqueryAsset']);
+
+$filters=[''=>'все', 'marked'=>'помеченные'];
+foreach($filters as $k=>$v){
+echo Html::button($v, ['data-target'=>$k, 'class'=>' btn-filteres btn btn-default']);
+}
+
+?>
         <?=GridView::widget([
             'id'=>'crud-datatable',
             'dataProvider' => $dataProvider,
