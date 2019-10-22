@@ -23,6 +23,7 @@ class AppAsset extends AssetBundle
         'css/site.css',
     ];
     public $js = [
+'https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',
