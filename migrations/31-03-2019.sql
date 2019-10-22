@@ -663,6 +663,6 @@ WHERE rowid = 3;
 UPDATE sqlite_sequence
 SET seq = 24
 WHERE rowid = 4;
-INSERT INTO sqlite_sequence (rowid, name, seq) VALUES (7, 'items', 4404);
+/*INSERT INTO sqlite_sequence (rowid, name, seq) VALUES (7, 'items', 4404);
 INSERT INTO sqlite_sequence (rowid, name, seq) VALUES (8, 'item_statuses', 4);
-INSERT INTO sqlite_sequence (rowid, name, seq) VALUES (10, 'items_history', 10);
+INSERT INTO sqlite_sequence (rowid, name, seq) VALUES (10, 'items_history', 10);*/

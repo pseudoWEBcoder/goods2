@@ -76,7 +76,7 @@ class ItemsController extends Controller
         if ($status == 'open')
             $model->status_id = ItemStatuses::STATUS_OPEN;/*OPEN*/
         if ($status == 'mark')
-            $model->status_id = ItemStatuses::STATUS_MARK;/*OPEN*/
+            $model->status_id = ItemStatuses::STATUS_MARK;/*MARK*/
         if ($model->save()) {
             //return $this->redirect(['view', 'id' => $model->id]);
 
