@@ -21,7 +21,10 @@
       "johnitvn/yii2-ajaxcrud": "*",
       "kartik-v/yii2-widget-select2": "^2.1",
         "dvizh/yii2-gallery": "@dev",
-        "newerton/yii2-fancybox": "dev-master"
+        "newerton/yii2-fancybox": "dev-master",
+        "2amigos/yii2-chartjs-widget": "~2.0",
+        "practically/yii2-chartjs": "^1.0",
+        "bower-asset/chart-js": "^2.9"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
