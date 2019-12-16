@@ -10,7 +10,9 @@ use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\Response;
-
+use yii\helpers\VarDumper;
+use yii\helpers\ArrayHelper;
+use yii\db\Expression;
 class SiteController extends Controller
 {
     /**
@@ -127,10 +129,17 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
-    public function actionDadata()
-    {
+    public function actionDadata($inn=null)
+    {header('Content-Type: application/json');
         Yii::$app->response->format = Response::FORMAT_JSON;
-        $found = DaDataHelper::dadata('findById/party', ['query' => '7703761570', 'count' => 1]);
+   Yii::$app->response->formatters =['json' => [
+    'class' => 'yii\web\JsonResponseFormatter',
+    'prettyPrint' => true,
+    'encodeOptions' =>/*JSON_UNESCAPED_SLASHES | */JSON_UNESCAPED_UNICODE, 
+    
+]
+];
+        $found = DaDataHelper::dadata('findById/party', ['query' =>$inn, 'count' => 1]);
         return $found;
 
     }
@@ -158,4 +167,22 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
+    public function actionGraph()
+    {
+	
+$all= 	 \app\models\Items::find()->JoinWith('receipt')->select(['items.*','receipt.*',new Expression("strftime('%s',receipt.date_time)/10 as timestamp")])->asArray()->limit(100)->all(); 
+//echo '<pre>';
+foreach($all as $i=>$v)
+{$time= \DateTime::createFromFormat( 'Y-m-d\TH:i:s', $v['date_time']);
+//die(var_dump([$time,$v]));
+if($time)
+{$ts=$time ->format('U');
+
+$data[]=['t'=>$ts,'y'=>$v['price']/100,'label'=> $v['name']];
+}
+}
+//$data=ArrayHelper::map($all,'timestamp','name');
+//VarDumper::dump([$data,$all]);
+	    return $this->render('graph', ['data'=>$data]);
+}
 }

@@ -8,6 +8,8 @@ $this->title = 'Json';
 ?>
 <div class="site-index">
 <?php
+
+var_export(compact(['condensed','responsive']));
 echo GridView::widget([
 'id' => 'kv-grid-demo',
 
@@ -82,6 +84,7 @@ Html::a('<i class="fas fa-redo"></i>', ['grid-demo'], [
 'condensed' => $condensed,
 
 'responsive' => $responsive,
+'responsiveWrap'=>false,
 
 'hover' => $hover,
 
