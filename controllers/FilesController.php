@@ -2,15 +2,14 @@
 
 namespace app\controllers;
 
-use Yii;
 use app\models\finpix\Tranzaction;
-use app\models\finpix\TranzactionSearch;
-use yii\web\Controller;
-use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use Yii;
 use yii\data\ArrayDataProvider;
+use yii\filters\VerbFilter;
 use yii\helpers\FileHelper;
 use yii\helpers\Html;
+use yii\web\Controller;
+use yii\web\NotFoundHttpException;
 
 /**
  * FinpixController implements the CRUD actions for Tranzaction model.
@@ -51,6 +50,7 @@ return Yii::$app->response->sendFile($f);
     public function actionIndex()
     {
 	$found =FileHelper::findFiles('/sdcard/DCIM/Camera/стиралка');
+
 	foreach($found as $k=>$v)
 {	$arr[$k]['name']=basename($v);
 	$arr[$k]['realpath']=realpath($v);
@@ -60,7 +60,8 @@ return Yii::$app->response->sendFile($f);
 		usort($arr, function ($a,  $b) {
 		return ($a['date' ]> $b['date']); 
 		});*/
-   $dataProvider = new ArrayDataProvider([
+
+        $dataProvider = new ArrayDataProvider([
  'allModels' => $arr,
      'sort' => [
           'attributes' => ['date', 'name'],
@@ -85,7 +86,74 @@ return $this->render('index', [
 'width'=>'150px', 
 'noWrap'=>true ],
 ],
-'responsive'=>false
+    'responsive' => false,
+    'condensed' => false
+]);
+    }
+
+    public function actionIndex1()
+    {
+        $found = FileHelper::findFiles('/sdcard/DCIM/Camera/стиралка');
+
+        foreach ($found as $k => $v) {
+            $arr[$k]['name'] = basename($v);
+            $arr[$k]['realpath'] = realpath($v);
+
+            $arr[$k]['date'] = fileatime($arr[$k]['realpath']);
+        }/*
+		usort($arr, function ($a,  $b) {
+		return ($a['date' ]> $b['date']); 
+		});*/
+        usort($arr, function ($a, $b) {
+            return $a['date'] >= $b['date'];
+        });
+        foreach ($arr as $k => &$v) {
+            $v['month'] = date('m', $v['date']);
+            $v['day'] = date('d', $v['date']);
+            $group[intval($v['month'])][intval($v['day'])][] = $v;
+        }
+        $arr['min'] = min($c = array_column($arr, 'month'));
+        $arr['max'] = max($c);
+        for ($month = $arr['min']; $month <= $arr['max']; $month++) {
+            $days = date('t', strtotime('01.' . str_pad('0', 2, $month, STR_PAD_LEFT) . '.' . date('Y')));
+            for ($day = 1; $day <= $days; $day++)
+                if (isset($group[intval($month)][intval($day)])) {
+
+                    $items = $group[intval($month)][intval($day)];
+                    foreach ($items as $v) {
+                        $v['day'] = $day . '.' . $month;
+                        $calendar[] = $v;
+                    }
+
+                } else
+                    $calendar[] = ['day' => $day . '.' . $month];
+        }
+        $dataProvider = new ArrayDataProvider([
+            'allModels' => $calendar,
+            'sort' => [
+                'attributes' => ['day', 'name'],
+            ],
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+        ]);
+
+
+        return $this->render('/files1/index', [
+            //    'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'gridColumns' => ['day', /*'date:datetime',*/
+                ['attribute' => 'name', 'value' => function ($model, $key, $index, $widget) {
+                    return Html::a(Yii::$app->formatter->asDate($model['date']), ['/files/getfile', 'name' => $model['name']]);
+                },
+//'filterType'=>GridView::FILTER_COLOR, 
+                    'vAlign' => 'middle',
+                    'format' => 'raw',
+                    'width' => '150px',
+                    'noWrap' => true],
+            ],
+            'responsive' => false,
+            'condensed' => false
         ]);
     }
 

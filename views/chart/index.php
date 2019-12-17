@@ -3,8 +3,6 @@
 
 /* @var $query \yii\db\ActiveQuery */
 
-use practically\chartjs\Chart;
-
 \app\assets\ChartAsset::register($this);
 foreach ($data as $index => $datum) {
 
