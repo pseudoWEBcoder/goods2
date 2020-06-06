@@ -1,5 +1,6 @@
 <?php
 /* @var $this yii\web\View */
+/* @var $model \app\models\ChartFilters */
 
 /* @var $query \yii\db\ActiveQuery */
 
@@ -143,5 +144,6 @@ new Chart(document.getElementById(\'chart\'), config);
 ';
 $js = New  \yii\web\JsExpression($script);
 $this->registerJs($js);
-echo \yii\helpers\Html::tag('canvas', '', ['id' => 'chart'])
+echo \yii\helpers\Html::tag('canvas', '', ['id' => 'chart']);
+echo $this->render('filters', ['model' => $model]);
 ?>

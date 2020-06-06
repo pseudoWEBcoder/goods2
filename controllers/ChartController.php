@@ -2,15 +2,12 @@
 
 namespace app\controllers;
 
-use app\Helpers\DaDataHelper;
-use app\models\ContactForm;
+use app\models\ChartFilters;
 use app\models\Items;
-use app\models\LoginForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
-use yii\web\Response;
 
 class ChartController extends Controller
 {
@@ -63,8 +60,12 @@ class ChartController extends Controller
      */
     public function actionIndex()
     {
+        $model = new  ChartFilters();
+        $data = [];
         $query =  Items::find()->joinWith(['receipt'/*, 'comments'*/])->orderBy(['receipt.date_time' => SORT_DESC])->asArray()->limit(null)->select(['receipt.date_time',  'name',  'price']);
+        $model->filter(Yii::$app->request->get(), $query);
         $all = ($query)->all();
+
         foreach ($all as $index => $item) {
             $time = \DateTime::createFromFormat('Y-m-d\TH:i:s', $item/*["receipt"]*/["date_time"]);
             if ($time) {
@@ -73,7 +74,7 @@ class ChartController extends Controller
 
             }
         }
-        return $this->render('index', compact('data',  'query'));
+        return $this->render('index', compact('data', 'query', 'model'));
     }
 
 
