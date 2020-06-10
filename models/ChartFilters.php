@@ -10,8 +10,6 @@ class ChartFilters extends \yii\base\Model
     public $day;
     public $month;
     public $year;
-    public $authKey;
-    public $accessToken;
 
     public function rules()
     {

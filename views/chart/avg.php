@@ -22,9 +22,7 @@ dataprovider = function () {
         cleandata["names"].push(el["tix"]);
         cleandata["dates"].push(el["d"]);
         cleandata["raw"].push(el);
-        if(typeOf (d )=="date")
-            
-        cleandata["grouped"]
+
         }
     return cleandata;
 }
