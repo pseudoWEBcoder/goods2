@@ -14,11 +14,13 @@ $script = /** @lang JavaScript */
 ' . json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) . ';
 dataprovider = function () {
     debugger;let  d ;  
-    let cleandata = {"labels":[], "vals":[],  "names":[],  "dates":[],  "raw":[]};
+    let cleandata = {"labels":[], "vals":[],  "names":[],  "dates":[],  "raw":[],  "avg_price":[],   "count":[]};
     for (var i in data)
         {let  el =  data[i];
         cleandata["labels"].push(d =  new Date(parseInt(el["t"]) ? parseInt(el["t"]) : null));
         cleandata["vals"].push((parseFloat(el["y"]) ? parseFloat(el["y"]) : null));
+        cleandata["avg_price"].push((parseFloat(el["avg_price"]) ? parseFloat(el["avg_price"]) : null));
+        cleandata["count"].push((parseFloat(el["count"]) ? parseFloat(el["count"]) : null));
         cleandata["names"].push(el["tix"]);
         cleandata["dates"].push(el["d"]);
         cleandata["raw"].push(el);
@@ -104,9 +106,19 @@ const config = {
     data: {
         labels: dataprovider()["labels"],
         datasets: [{
-            label: \'Line\',
+            label: \'сумма  по месяцам\',
             data: dataprovider()["vals"],
             borderColor: \'#D4213D\',
+            fill: true,
+        },{
+            label: \'средняя стоимость товара  по месяцам\',
+            data: dataprovider()["avg_price"],
+            borderColor: \'blue\',
+            fill: false,
+        },{
+            label: \'количество товара  по месяцам\',
+            data: dataprovider()["count"],
+            borderColor: \'pink\',
             fill: false,
         },],
     },

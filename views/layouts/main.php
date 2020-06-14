@@ -52,7 +52,7 @@ AppAsset::register($this);
                     $name = $action->getName();
 
                     if (preg_match('/action([A-Z].+)/', $name, $matches_name)) {
-                        $Actions[] = ['label' => $matches_name[1], 'url' => ['/' . mb_strtolower($class) . '/', mb_strtolower($matches_name[1])]];
+                        $Actions[] = ['label' => $matches_name[1], 'url' => ['/' . mb_strtolower($class) . '/' . mb_strtolower($matches_name[1])]];
                     }
                 }
                 if (!empty($Actions))

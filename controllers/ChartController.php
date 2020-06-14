@@ -67,11 +67,14 @@ class ChartController extends Controller
             'date_min' => new  Expression('(receipt.date_time)'),
             'date_max' => new  Expression('max(receipt.date_time)'),
             'total_sum' => new  Expression('sum(`total_sum`)'),
+            'avg_price' => new  Expression('avg(`items`.price) / 100'),
             'count' => new  Expression('count(*)'),
             'd' => 'strftime(\'%d\',`receipt`.`date_time`)*1',
             'm' => 'strftime(\'%m\',`receipt`.`date_time`)*1',
             'y' => 'strftime(\'%Y\',`receipt`.`date_time`)*1'
-        ])->where(['and', ['y' => 2019], ['m' => [3]]])->asArray()->groupBy(['Y', 'm', 'd'])->orderBy(['d' => SORT_ASC, 'm' => SORT_ASC, 'y' => SORT_ASC]);
+        ])
+            //   ->where(['and', ['y' => 2019], ['m' => [ 3]]])
+            ->asArray()->groupBy(['Y', 'm'/*, 'd'*/])->orderBy(['y' => SORT_ASC, 'm' => SORT_ASC]);
         $model->filter(Yii::$app->request->get(), $query);
         $all = ($query)->all();
 
@@ -80,7 +83,7 @@ class ChartController extends Controller
             $grouped[$item['y']][$item['m']][$item['d']] = $item;
             if ($time) {
                 $ts = $time->format('U');
-                $data[] = ['t' => $ts * 1000, 'y' => $item['total_sum'] / 100, 'tix' => $item['count'], 'd' => $strdate];
+                $data[] = ['t' => $ts * 1000, 'y' => $item['total_sum'] / 100, 'd' => $strdate, 'avg_price' => $item['avg_price'], 'count' => $item['count']];
 
             }
         }
