@@ -118,7 +118,7 @@ const config = {
         },{
             label: \'количество товара  по месяцам\',
             data: dataprovider()["count"],
-            borderColor: \'pink\',
+            borderColor: \'green\',
             fill: false,
         },],
     },
