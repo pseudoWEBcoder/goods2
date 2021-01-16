@@ -77,7 +77,7 @@ class ChartController extends Controller
             ->asArray()->groupBy(['Y', 'm'/*, 'd'*/])->orderBy(['y' => SORT_ASC, 'm' => SORT_ASC]);
         $model->filter(Yii::$app->request->get(), $query);
         $all = ($query)->all();
-
+;
         foreach ($all as $index => $item) {
             $time = \DateTime::createFromFormat('Y-m-d\TH:i:s', $strdate = "{$item['y']}-{$item['m']}-{$item['d']}T00:00:00");
             $grouped[$item['y']][$item['m']][$item['d']] = $item;
@@ -106,15 +106,18 @@ class ChartController extends Controller
         $query = Items::find()->joinWith(['receipt'/*, 'comments'*/])->orderBy(['receipt.date_time' => SORT_DESC])->asArray()->limit(null)->select(['receipt.date_time', 'name', 'price']);
         $model->filter(Yii::$app->request->get(), $query);
         $all = ($query)->all();
-
+;
         foreach ($all as $index => $item) {
             $time = \DateTime::createFromFormat('Y-m-d\TH:i:s', $item/*["receipt"]*/ ["date_time"]);
             if ($time) {
                 $ts = $time->format('U');
+//2020-07-01T15:28:00
+//2020-07-29T17:11:00+03:00
                 $data[] = ['t' => $ts * 1000, 'y' => $item['price'] / 100, 'tix' => $item['name'], 'd' => $item["date_time"]];
 
             }
         }
+//var_dump($all, $data);
         return $this->render('index', compact('data', 'query', 'model'));
     }
 

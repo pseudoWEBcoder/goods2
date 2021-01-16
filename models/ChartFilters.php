@@ -35,10 +35,10 @@ class ChartFilters extends \yii\base\Model
             if (is_array($this->$c)) {
                 foreach ($this->$c as $index => $item) {
                     $rnd = mt_rand(0, 999);
-                    $query->orWhere(new  Expression('strftime(\'%' . $a . '\',`receipt`.`date_time`) = :' . $b . $index . '_' . $rnd, [$b . $index . '_' . $rnd => $item]));
+                    $query->orWhere(new  Expression('strftime(\'%' . $a . '\',`receipt`.`date_time`)*1 = :' . $b . $index . '_' . $rnd, [$b . $index . '_' . $rnd => (int)$item]));
                 }
             } else {
-                $query->andWhere(new  Expression('strftime(\'%' . $a . '\',`receipt`.`date_time`) = :' . $b, [$b => $this->$c]));
+                $query->andWhere(new  Expression('strftime(\'%' . $a . '\',`receipt`.`date_time`)*1 = :' . $b, [$b =>(int) $this->$c]));
 
 
             }
