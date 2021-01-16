@@ -72,6 +72,10 @@ return [
     [
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'name',
+'format'=>'raw',
+'value' => function ($model, $val, $key) {
+
+           return $model->quantity==1? $model->name: $model->name.' <span class="text-info"> '.($model->price/100).'&nbsp;&times;&nbsp;'. $model->quantity.'&nbsp;=&nbsp;'.(($model->price/100)*$model->quantity).'</span>';}
     ],
     'formatedPrice',
     // 'receipt.date_time',
