@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use voskobovich\behaviors\ManyToManyBehavior;
+
 /**
  * This is the model class for table "receipt".
  *
@@ -75,7 +77,7 @@ namespace app\models;
  */
 class Receipt extends \yii\db\ActiveRecord
 {
-  //  public  $icons;
+    //  public  $icons;
     /**
      * {@inheritdoc}
      */
@@ -92,7 +94,20 @@ class Receipt extends \yii\db\ActiveRecord
         return [
             [['created', 'updated', 'commit', 'fiscal_document_number', 'total_sum', 'nds_no', 'shift_number', 'counter_submission_sum', 'taxation_type', 'ecash_total_sum', 'prepayment_sum', 'cash_total_sum', 'postpayment_sum', 'request_number', 'operation_type', 'receipt_code', 'nds18', 'nds10', 'prepaid_sum', 'internet_sign', 'fiscal_document_format_ver', 'provision_sum', 'payment_agent_type', 'credit_sum', 'nds_calculated10', 'nds_calculated18', 'protocol_version', 'code'], 'integer'],
             [['user_inn', 'fiscal_sign', 'operator', 'fiscal_drive_number', 'kkt_reg_id', 'user', 'message_fiscal_sign', 'raw_data', 'fns_url', 'operator_inn', 'modifiers', 'retail_place_address', 'storno_items', 'retail_place', 'fns_site', 'machine_number', 'seller_address', 'buyer_address', 'properties_user', 'address_to_check_fiscal_sign', 'sender_address', 'user_property', 'properties', 'message', 'authority_uri', 'operator_transfer_address', 'buyer_phone_or_address', 'provider_phone', 'operator_phone_to_transfer', 'retail_address', 'operator_transfer_inn', 'operator_to_receive_phone', 'operator_transfer_name', 'payment_agent_operation', 'payment_agent_phone'], 'string'],
-            [['date_time'], 'number'],
+            [['date_time'], 'string'],
+            [['icon_ids'], 'each', 'rule' => ['integer']],
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => ManyToManyBehavior::class,
+                'relations' => [
+                    'icon_ids' => 'icons',
+                ],
+            ],
         ];
     }
 

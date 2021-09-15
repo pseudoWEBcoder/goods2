@@ -26,7 +26,8 @@
       "practically/yii2-chartjs": "^1.0",
       "bower-asset/chart-js": "^2.9",
       "mohorev/yii2-upload-behavior": "*",
-      "yiisoft/yii2-imagine": "^2.3"
+      "yiisoft/yii2-imagine": "^2.3",
+      "voskobovich/yii2-many-many-behavior": "~3.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

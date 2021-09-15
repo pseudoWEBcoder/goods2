@@ -2,7 +2,6 @@
 
 use app\models\Icons;
 use kartik\select2\Select2;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -14,9 +13,13 @@ use yii\widgets\ActiveForm;
 <div class="receipt-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'icons')->widget(Select2::classname(), [
-        'data' => ArrayHelper::map(Icons::find()->all(), 'id', 'name'),
+    <?php
+    foreach ($model->icons as $index => $icon) {
+        echo Html::img($icon->getUploadUrl('src'), ['class' => 'img-thumbnail']);
+    }
+    ?>
+    <?= $form->field($model, 'icon_ids')->widget(Select2::classname(), [
+        'data' => Icons::listAll(),
         'options' => ['placeholder' => 'Select a state ...'],
         'pluginOptions' => [
             'allowClear' => true,

@@ -26,20 +26,25 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-
+    <?php
+    $images = [];
+    foreach ($model->icons as $index => $icon) {
+        $images[] = ['label' => $icon->name, 'format' => 'html', 'value' => Html::img($icon->getUploadUrl('src'), ['class' => 'img-thumbnail'])];
+    }
+    ?>
     <?= DetailView::widget([
         'model' => $model,
-        'attributes' => [
-            'id',
-            ['attribute' => 'created', 'value' => $model->created ? date('d.m.Y H:i', $model->created) : ''],
-            ['attribute' => 'updated', 'value' => $model->updated ? date('d.m.Y H:i', $model->updated) : ''],
-            'commit',
-            'user_inn:ntext',
-            'fiscal_document_number',
-            'fiscal_sign:ntext',
-            'operator:ntext',
-            'total_sum',
-            'nds_no',
+        'attributes' => $images + [
+                'id',
+                ['attribute' => 'created', 'value' => $model->created ? date('d.m.Y H:i', $model->created) : ''],
+                ['attribute' => 'updated', 'value' => $model->updated ? date('d.m.Y H:i', $model->updated) : ''],
+                'commit',
+                'user_inn:ntext',
+                'fiscal_document_number',
+                'fiscal_sign:ntext',
+                'operator:ntext',
+                'total_sum',
+                'nds_no',
             'shift_number',
             'fiscal_drive_number:ntext',
             'counter_submission_sum',
