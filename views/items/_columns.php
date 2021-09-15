@@ -53,6 +53,25 @@ return [
 //}
             }
 
+    ], [
+        'class' => '\kartik\grid\DataColumn',
+        'format' => 'raw',
+        'label' => 'картинка',
+        // 'group' =>true,
+        'value' => /**
+         * @param $model \app\models\Items
+         * @param $key
+         * @param $w
+         */
+            function ($model, $key, $w) {
+                $images = $model->receipt->icons;
+                foreach ($images as $img) {
+                    //retun url to full image
+                    $a = Html::a(Html::img($img->getThumbUploadUrl('src', 'icon')), $img->getUploadUrl('src'), ['rel' => 'fancybox', 'title' => $img->name, 'data-pjax' => 0]);
+                    return $a;
+                }
+            }
+
     ], 'id',
     [
         'class' => '\kartik\grid\DataColumn',
