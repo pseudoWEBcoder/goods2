@@ -82,7 +82,7 @@ class IconsController extends Controller
     public function actionCreate()
     {
         $model = new Icons();
-
+        $model->setScenario('insert'); // Note! Set upload behavior scenario.
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }

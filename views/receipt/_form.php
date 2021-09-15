@@ -1,5 +1,8 @@
 <?php
 
+use app\models\Icons;
+use kartik\select2\Select2;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -12,6 +15,15 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->field($model, 'icons')->widget(Select2::classname(), [
+        'data' => ArrayHelper::map(Icons::find()->all(), 'id', 'name'),
+        'options' => ['placeholder' => 'Select a state ...'],
+        'pluginOptions' => [
+            'allowClear' => true,
+            'multiple' => true
+        ],
+    ]); ?>
+    <?php ob_start(); ?>
     <?= $form->field($model, 'created')->textInput() ?>
 
     <?= $form->field($model, 'updated')->textInput() ?>
@@ -139,7 +151,17 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'payment_agent_operation')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'payment_agent_phone')->textarea(['rows' => 6]) ?>
-
+    <?php echo \yii\bootstrap\Collapse::widget([
+        'items' => [
+            // equivalent to the above
+            [
+                'label' => 'больше',
+                'content' => ob_get_clean(),
+                // open its content by default
+                //    'contentOptions' => ['class' => 'in']
+            ]
+        ]
+    ]); ?>
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

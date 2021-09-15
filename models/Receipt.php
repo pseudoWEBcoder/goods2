@@ -2,8 +2,6 @@
 
 namespace app\models;
 
-use Yii;
-
 /**
  * This is the model class for table "receipt".
  *
@@ -77,6 +75,7 @@ use Yii;
  */
 class Receipt extends \yii\db\ActiveRecord
 {
+  //  public  $icons;
     /**
      * {@inheritdoc}
      */
@@ -177,5 +176,19 @@ class Receipt extends \yii\db\ActiveRecord
     public function getItems()
     {
         return $this->hasMany(Items::className(), ['receipt_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getIconReceipt()
+    {
+        return $this->hasMany(IconReceipt::class, ['receipt_id' => 'id']);
+    }
+
+    public function getIcons()
+    {
+        return $this->hasMany(Icons::class, ['id' => 'icon_id'])
+            ->via('iconReceipt');
     }
 }

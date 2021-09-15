@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name:ntext',
             'src:ntext',
+            ['label' => '', 'value' => Html::img($model->getUploadUrl('src'), ['class' => 'img-thumbnail']), 'format' => 'html']
         ],
     ]) ?>
 

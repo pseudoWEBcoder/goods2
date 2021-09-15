@@ -1,8 +1,9 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
 use yii\helpers\Url;
+use yii\widgets\DetailView;
+
 /* @var $this yii\web\View */
 /* @var $model app\models\Receipt */
 
@@ -30,8 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'created',
-            'updated',
+            ['attribute' => 'created', 'value' => $model->created ? date('d.m.Y H:i', $model->created) : ''],
+            ['attribute' => 'updated', 'value' => $model->updated ? date('d.m.Y H:i', $model->updated) : ''],
             'commit',
             'user_inn:ntext',
             'fiscal_document_number',
