@@ -142,6 +142,16 @@ class Items extends \yii\db\ActiveRecord
         return number_format((float)$this->price / 100, 2, '.', ' ');
     }
 
+    public function getformatedSum()
+    {
+        return number_format((float)$this->sum / 100, 2, '.', ' ');
+    }
+
+    public function getformatedTotalSum()
+    {
+        return number_format((float)$this->receipt->total_sum / 100, 2, '.', ' ');
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
