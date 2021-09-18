@@ -45,7 +45,7 @@ $this->registerJs($js);
                 return $model->getItems()->count();
             }, 'format' => 'integer'
             ], ['label' => 'товары', 'value' => function ($model) {
-                $view = $GET['view'] ?? 'table';
+                $view = $_GET['view'] ?? 'table';
                 //$items = $model->getItems()->select  ('sum(sum) as sum,sum(quantity) as quantity,  *')->orderBy(['sum'=>SORT_DESC])->groupBy('name')->all();
                 $items = $model->getItems()->orderBy(['sum' => SORT_DESC])->all();
                 $map = \yii\helpers\ArrayHelper::map($items, 'id', 'name');
@@ -78,7 +78,14 @@ $this->registerJs($js);
                 //return ($tr && count($tr)) ? ('<table class="table table-bordered table-striped">' . implode(PHP_EOL, $tr) . '</table>') : '';
 
             }, 'format' => 'raw'
-                , 'filter' => Html::a('свернуть', '#', ['class' => 'toggle_tditems']), 'contentOptions' => ['class' => 'tditems'
+                , 'filter' => Html::a('свернуть', '#', ['class' => 'toggle_tditems']) .
+                    '<form>' . Html::input('select', 'view', $_GET['view'], ['']) . '
+<select name="view">
+<option value=""></option>
+<option value="list_cost">list_cost</option>
+<option value="list">list</option>
+<option value="table">table</option>
+</select> <input type="submit" value="ok"></form>', 'contentOptions' => ['class' => 'tditems'
                 ]
             ],
             //'fiscal_document_number',
