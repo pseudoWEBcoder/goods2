@@ -1,7 +1,7 @@
 <?php
 
-use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\searches\ReceiptSearch */
@@ -9,6 +9,15 @@ use yii\grid\GridView;
 
 $this->title = 'Receipts';
 $this->params['breadcrumbs'][] = $this->title;
+$js = /** @lang JavaScript */
+    <<<end
+jQuery(document).on('click','.toggle_tditems',  function (event, el){
+    jQuery('.tditems').slideToggle('fast');
+    event.preventDefault();
+    event.stopPropagation();
+})
+end;
+$this->registerJs($js);
 ?>
 <div class="receipt-index">
 
@@ -25,16 +34,53 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'created:datetime',
-            'updated',
-            'commit',
-            'user_inn:ntext',
-['label'=>'count','value'=>function($model){
-return $model->getItems()->count();
-var_export($model,1);
-}
-],
+            // 'id',
+            'user:text',
+            'date_time:datetime',
+            //  'updated',
+            //   'commit',
+            //   'user_inn:ntext',
+            ['label' => 'count', 'value' => function ($model) {
+
+                return $model->getItems()->count();
+            }, 'format' => 'integer'
+            ], ['label' => 'товары', 'value' => function ($model) {
+                $view = $GET['view'] ?? 'table';
+                //$items = $model->getItems()->select  ('sum(sum) as sum,sum(quantity) as quantity,  *')->orderBy(['sum'=>SORT_DESC])->groupBy('name')->all();
+                $items = $model->getItems()->orderBy(['sum' => SORT_DESC])->all();
+                $map = \yii\helpers\ArrayHelper::map($items, 'id', 'name');
+                /** @var \app\models\Items $item */
+                foreach ($items as $index => $item) {
+                    $tr [] = '<tr>';
+                    $tr [] = '<td>' . $item->name . '</td>';
+                    $tr [] = '<td class="text-muted">' . $item->quantity . '</td>';
+                    $tr [] = '<td class="text-muted">' . $item->formatedSum . '</td>';
+                    $tr [] = '</tr>';
+
+                    $li [] = '<li>';
+                    $li [] = '<span class="pull-left">' . $item->name . '</span>';
+                    $li [] = '<span class="pull-right text-muted">' . $item->formatedSum . '</span>';
+                    $li [] = '</li>';
+                }
+                switch ($view) {
+                    case  'list_cost':
+                        return ($li && count($li)) ? ('<ul>' . implode('', $li) . '</ul>') : '';
+                        break;
+                    case  'list':
+                        return Html::ul($map);
+                        break;
+                    case  'table':
+                        return ($tr && count($tr)) ? ('<table class="table table-bordered table-striped table-hover">' . implode(PHP_EOL, $tr) . '</table>') : '';
+                        break;
+
+                }
+
+                //return ($tr && count($tr)) ? ('<table class="table table-bordered table-striped">' . implode(PHP_EOL, $tr) . '</table>') : '';
+
+            }, 'format' => 'raw'
+                , 'filter' => Html::a('свернуть', '#', ['class' => 'toggle_tditems']), 'contentOptions' => ['class' => 'tditems'
+                ]
+            ],
             //'fiscal_document_number',
             //'fiscal_sign:ntext',
             //'operator:ntext',
@@ -53,7 +99,7 @@ var_export($model,1);
             //'request_number',
             //'operation_type',
             //'receipt_code',
-            'user:ntext',
+            //'user:ntext',
             //'message_fiscal_sign:ntext',
             //'raw_data:ntext',
             //'nds18',
