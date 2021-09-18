@@ -206,4 +206,10 @@ class Receipt extends \yii\db\ActiveRecord
         return $this->hasMany(Icons::class, ['id' => 'icon_id'])
             ->via('iconReceipt');
     }
+
+
+    public function getFormatedTotalSum()
+    {
+        return number_format((float)$this->total_sum / 100, 2, '.', ' ');
+    }
 }

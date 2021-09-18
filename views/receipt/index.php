@@ -37,6 +37,19 @@ $this->registerJs($js);
             // 'id',
             'user:text',
             'date_time:datetime',
+            ['attribute' => 'formatedTotalSum', 'label' => 'сумма', 'value' => /**
+             * @param $model \app\models\Receipt
+             * @param $key integer
+             * @return string
+             */ function ($model, $key) {
+                 $total_sum =  $model->total_sum/100 ;
+                if ($total_sum > 2000)
+                    return Html::tag('span', $model->formatedTotalSum, ['class' => 'text-danger']);
+                else if (($total_sum > 200) && ($total_sum < 2000))
+                    return Html::tag('span', $model->formatedTotalSum, ['class' => 'text-warning']);
+                else
+                    return Html::tag('span', $model->formatedTotalSum, []);
+            }, 'format' => 'html'],
             //  'updated',
             //   'commit',
             //   'user_inn:ntext',
@@ -79,7 +92,7 @@ $this->registerJs($js);
 
             }, 'format' => 'raw'
                 , 'filter' => Html::a('свернуть', '#', ['class' => 'toggle_tditems']) .
-                    '<form>' . Html::input('select', 'view', $_GET['view'], ['']) . '
+                    '<form>' . '
 <select name="view">
 <option value=""></option>
 <option value="list_cost">list_cost</option>

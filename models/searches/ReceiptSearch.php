@@ -11,6 +11,7 @@ use app\models\Receipt;
  */
 class ReceiptSearch extends Receipt
 {
+    public $view;
     /**
      * {@inheritdoc}
      */
