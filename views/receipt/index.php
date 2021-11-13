@@ -59,8 +59,8 @@ $this->registerJs($js);
             }, 'format' => 'integer'
             ], ['label' => 'товары', 'value' => function ($model) {
                 $view = $_GET['view'] ?? 'table';
-                //$items = $model->getItems()->select  ('sum(sum) as sum,sum(quantity) as quantity,  *')->orderBy(['sum'=>SORT_DESC])->groupBy('name')->all();
-                $items = $model->getItems()->orderBy(['sum' => SORT_DESC])->all();
+                $items = $model->getItems()->select('sum(sum) as sum,sum(quantity) as quantity,  items.*')->orderBy(['sum' => SORT_DESC])->groupBy('name')->all();
+                // $items = $model->getItems()->orderBy(['sum' => SORT_DESC])->all();
                 $map = \yii\helpers\ArrayHelper::map($items, 'id', 'name');
                 /** @var \app\models\Items $item */
                 foreach ($items as $index => $item) {

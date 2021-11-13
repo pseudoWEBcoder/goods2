@@ -1,6 +1,7 @@
 <?php
 
 use kartik\grid\GridView;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -86,6 +87,18 @@ return [
                 .
                 Html::a('<i class="glyphicon glyphicon-check"></i>&nbsp; ' . (Html::tag('span', '', ['class' => 'badge'])), ["commit", 'id' => $model->id], ['role' => 'modal-remote', 'class' => 'pull-right text-success']) .
                 ($model->status_id == \app\models\ItemStatuses::STATUS_MARK ? '' : Html::a('<i class="glyphicon glyphicon-barcode"></i>&nbsp; ' . (Html::tag('span', '', ['class' => 'badge'])), ["commit", 'id' => $model->id, 'status' => 'mark'], ['role' => 'modal-remote', 'class' => 'pull-right text-muted']));
+        }
+    ],
+    [
+        'class' => '\kartik\grid\DataColumn',
+        'attribute' => 'name',
+        'format' => 'raw',
+        'label' => 'категория',
+        'value' => function ($model, $val, $key) {
+            foreach ($model->category as $item) {
+
+            }
+            return Html::ul(ArrayHelper::map($model->category, 'id', 'text'));
         }
     ],
     [

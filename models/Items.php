@@ -137,6 +137,22 @@ class Items extends \yii\db\ActiveRecord
         return $this->hasOne(ItemStatuses::className(), ['id' => 'status_id']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategory()
+    {
+        return $this->hasMany(Category::className(), ['id' => 'id'])->via('itemCategory');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getItemCategory()
+    {
+        return $this->hasOne(ItemCategory::className(), ['item_id' => 'id']);
+    }
+
     public function getformatedPrice()
     {
         return number_format((float)$this->price / 100, 2, '.', ' ');
