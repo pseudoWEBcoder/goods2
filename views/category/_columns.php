@@ -18,6 +18,7 @@ return [
     [
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'time',
+        'format' => 'datetime'
     ],
     [
         'class' => '\kartik\grid\DataColumn',

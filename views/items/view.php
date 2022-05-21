@@ -54,9 +54,8 @@ echo newerton\fancybox\FancyBox::widget([
         'model' => $model,
         'attributes' => [
             'id',
-            ['attribute' => 'created',
-                'format' => 'datetime'],
-            'updated:datetime',
+            'created:datetime:создано',
+            'updated:datetime:обновлено',
             'quantity',
             'price',
             'name:ntext',
@@ -84,6 +83,7 @@ echo newerton\fancybox\FancyBox::widget([
             'excise',
             'commit:datetime',
             'status.text',
+            'receipt.retail_place_address'
         ],
         'template' => function ($attribute, $index, $widget) {
 //your code for rendering here. e.g.

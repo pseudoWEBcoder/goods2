@@ -1,5 +1,6 @@
 <?php
 
+use kartik\editable\Editable;
 use kartik\grid\GridView;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -90,15 +91,17 @@ return [
         }
     ],
     [
-        'class' => '\kartik\grid\DataColumn',
-        'attribute' => 'name',
+        'editableOptions' => ['inputType' => Editable::INPUT_DROPDOWN_LIST, 'formOptions' => ['action' => ['/site/editbook']]],
+        'class' => '\kartik\grid\EditableColumn',
+        'attribute' => 'category',
         'format' => 'raw',
         'label' => 'категория',
         'value' => function ($model, $val, $key) {
-            foreach ($model->category as $item) {
+            if ($model->category)
+                foreach ($model->category as $item) {
 
-            }
-            return Html::ul(ArrayHelper::map($model->category, 'id', 'text'));
+                }
+            return $model->category ? Html::ul(ArrayHelper::map($model->category, 'id', 'text')) : null;
         }
     ],
     [

@@ -2,9 +2,9 @@
 
 namespace app\models\searches;
 
+use app\models\Receipt;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Receipt;
 
 /**
  * ReceiptSearch represents the model behind the search form of `app\models\Receipt`.
@@ -12,6 +12,7 @@ use app\models\Receipt;
 class ReceiptSearch extends Receipt
 {
     public $view;
+
     /**
      * {@inheritdoc}
      */
@@ -48,6 +49,7 @@ class ReceiptSearch extends Receipt
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => ['defaultOrder' => ['date_time' => SORT_DESC]],
         ]);
 
         $this->load($params);
