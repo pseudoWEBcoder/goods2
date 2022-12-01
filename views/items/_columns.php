@@ -103,7 +103,7 @@ return [
 
                 }
             //  return  '<b>OK</b>';
-            return $model->category ? Html::ul(ArrayHelper::map($model->category, 'id', 'text')) : null;
+            return ($category = $model->getCategory()->all()) ? Html::ul(ArrayHelper::map($category, 'id', 'text')) : null;
         }
     ],
     [
