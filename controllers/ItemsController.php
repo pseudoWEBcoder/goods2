@@ -4,11 +4,14 @@ namespace app\controllers;
 
 use app\models\Comment;
 use app\models\CommentSearch;
+use app\models\ItemCategory;
 use app\models\Items;
 use app\models\ItemsSearch;
 use app\models\ItemStatuses;
+use kartik\grid\EditableColumnAction;
 use Yii;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\Controller;
@@ -20,6 +23,41 @@ use yii\web\Response;
  */
 class ItemsController extends Controller
 {
+    public function actions()
+    {
+        return ArrayHelper::merge(parent::actions(), [
+            'edititem' => [                                       // identifier for your editable action
+                'class' => EditableColumnAction::className(),     // action class name
+                'modelClass' => Items::className(),                // the update model class
+                'outputValue' => function ($model, $attribute, $key, $index) {
+                    $fmt = Yii::$app->formatter;
+                    $value = $model->$attribute;                 // your attribute value
+                    if ($attribute === 'buy_amount') {           // selective validation by attribute
+                        return $fmt->asDecimal($value, 2);       // return formatted value if desired
+                    } elseif ($attribute === 'publish_date') {   // selective validation by attribute
+                        return $fmt->asDate($value, 'php:Y-m-d');// return formatted value if desired
+                    } elseif ($attribute === 'category') {
+                        //$value = $model->category_ids = [$value];
+                        return $value;
+                    } elseif ($attribute === 'category_ids') {
+                        $value = ArrayHelper::getColumn($all = ItemCategory::find()->where(['item_id' => $model->id])->with(['category'])->all(), 'category.text');
+                        return implode(PHP_EOL, is_array($value) ? $value : []);
+                    }
+                    return '';                                   // empty is same as $value
+                },
+                'outputMessage' => function ($model, $attribute, $key, $index) {
+                    return '';                                  // any custom error after model save
+                },
+                // 'showModelErrors' => true,                     // show model errors after save
+                // 'errorOptions' => ['header' => '']             // error summary HTML options
+                // 'postOnly' => true,
+                // 'ajaxOnly' => true,
+                // 'findModel' => function($id, $action) {},
+                // 'checkAccess' => function($action, $model) {}
+            ]
+        ]);
+    }
+
     /**
      * @inheritdoc
      */

@@ -148,7 +148,7 @@ class Receipt extends \yii\db\ActiveRecord
             'fns_url' => 'Fns Url',
             'operator_inn' => 'Operator Inn',
             'modifiers' => 'Modifiers',
-            'retail_place_address' => 'Retail Place Address',
+            'retail_place_address' => 'Адрес магазина',
             'storno_items' => 'Storno Items',
             'retail_place' => 'Retail Place',
             'prepaid_sum' => 'Prepaid Sum',

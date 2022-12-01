@@ -41,4 +41,14 @@ class Category extends \yii\db\ActiveRecord
             'text' => 'Text',
         ];
     }
+
+    public static function listAll($keyField = 'id', $valueField = 'name', $asArray = true)
+    {
+        $query = static::find();
+        if ($asArray) {
+            $query->select([$keyField, $valueField])->asArray();
+        }
+
+        return ArrayHelper::map($query->all(), $keyField, $valueField);
+    }
 }

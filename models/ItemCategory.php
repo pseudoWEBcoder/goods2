@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use yii\rbac\Item;
+
 
 /**
  * This is the model class for table "item_category".
@@ -36,7 +36,7 @@ class ItemCategory extends \yii\db\ActiveRecord
      */
     public function getItem()
     {
-        return $this->hasOne(Item::className(), ['id' => 'item_id']);
+        return $this->hasOne(Items::className(), ['id' => 'item_id']);
     }
 
     /**

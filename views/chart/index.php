@@ -40,7 +40,7 @@ var customTooltips = function(tooltip,  all  ) {
 				this._chart.canvas.parentNode.appendChild(tooltipEl);
 			}
 			
-index = tooltip.dataPoints["0"].index ;		
+index = tooltip.dataPoints?.["0"].index ;		
 			let  dp = dataprovider(),  Point = {};
 Point["name"] =  dp["names"][index];
 Point["date"] =  dp["dates"][index];

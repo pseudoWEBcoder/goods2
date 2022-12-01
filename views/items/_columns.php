@@ -75,6 +75,7 @@ return [
             }
 
     ], 'id',
+    ['attribute' => 'receipt.retail_place_address', 'group' => true],
     [
         'class' => '\kartik\grid\DataColumn',
         'attribute' => 'commit',
@@ -91,9 +92,9 @@ return [
         }
     ],
     [
-        'editableOptions' => ['inputType' => Editable::INPUT_DROPDOWN_LIST, 'formOptions' => ['action' => ['/site/editbook']]],
+        'editableOptions' => ['inputType' => Editable::INPUT_DROPDOWN_LIST, 'data' => ArrayHelper::map(\app\models\Category::find()->asArray()->all(), 'id', 'text'), 'formOptions' => ['action' => ['/items/edititem']], 'options' => ['multiple' => true]],
         'class' => '\kartik\grid\EditableColumn',
-        'attribute' => 'category',
+        'attribute' => 'category_ids',
         'format' => 'raw',
         'label' => 'категория',
         'value' => function ($model, $val, $key) {
@@ -101,6 +102,7 @@ return [
                 foreach ($model->category as $item) {
 
                 }
+            //  return  '<b>OK</b>';
             return $model->category ? Html::ul(ArrayHelper::map($model->category, 'id', 'text')) : null;
         }
     ],
