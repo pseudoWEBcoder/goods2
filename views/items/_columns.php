@@ -9,26 +9,46 @@ use yii\web\JsExpression;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Items */
+$createCategoryTag = /** @lang JavaScript */
+    '
+async function (params) {
+    // Don\'t offset to create a tag if there is no @ symbol
+    if (params.term.indexOf(\'@\') === -1) {
+        // Return null to disable tag creation
+        return null;
+    }
+  category =   await addNewCategory(params.term)
+  if  (category && (\'id\' in  category)&& category.id)
+    return {
+    id: category.id,
+      text: params.term
+    }
+    else  return  null;
+    }
+    ';
 $js = /** @lang JavaScript */
     '
-jQuery(document).on("click",  ".addNewCategory",  function(event, el) {
-    debugger;
-   addNewCategory(jQuery(this).closest(\'td\').find(\'input:text\').val())
-})
-function addNewCategory(text){
-    url =  JSON.parse(' . json_encode(Url::to(['/item-category/create'])) . ')
-    val =  text
-    jQuery.getJSON(url,  {"Category":{"text":val}})
+//jQuery(document).on("click",  ".addNewCategory",  function(event, el) {
+//    debugger;
+//   addNewCategory(jQuery(this).closest(\'td\').find(\'input:text\').val())
+//})
+ async function addNewCategory(text){
+    url =  (' . json_encode(Url::to(['/item-category-rest/create'])) . ')
+    val =  text,  ok =  false 
+   return   jQuery.post(url,  {"Category":{"name":val}})
      .done(function() {
+         ok =  true 
     console.log( "second success" );
   })
   .fail(function() {
     console.log( "error" );
   })
+  if(ok)
+      return  result  
 }
 ';
 $js = new JsExpression($js);
-Yii::$app->view->registerJS($js);
+Yii::$app->view->registerJS($js, yii\web\View::POS_HEAD);
 return [
     /* [
          'class' => 'kartik\grid\CheckboxColumn',
@@ -123,9 +143,9 @@ return [
             /*'options' => []*/
             'options' => [
                 'data' => ArrayHelper::map(\app\models\Category::find()->asArray()->all(), 'id', 'text'),
-                'pluginOptions' => ['multiple' => true, 'language' => [
+                'pluginOptions' => ['tags' => true, 'multiple' => true, 'createTag' => new JsExpression($createCategoryTag), 'language' => [
 
-                    'noResults' => new JsExpression('function () {return "<button type=\"button\" class=\"btn btn-info btn-xs addNewCategory\" >Добавить</button>"; }'),
+                    ///      'noResults' => new JsExpression('function (term) {debugger;return `<button type="button" class="btn btn-info btn-xs addNewCategory" >Добавить &laquo;${term}&raquo;</button>`; }'),
                 ],
                     'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
                     'allowClear' => true,]
