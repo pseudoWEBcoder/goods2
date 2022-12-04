@@ -5,7 +5,30 @@ use kartik\grid\GridView;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\web\JsExpression;
 
+/* @var $this yii\web\View */
+/* @var $model app\models\Items */
+$js = /** @lang JavaScript */
+    '
+jQuery(document).on("click",  ".addNewCategory",  function(event, el) {
+    debugger;
+   addNewCategory(jQuery(this).closest(\'td\').find(\'input:text\').val())
+})
+function addNewCategory(text){
+    url =  JSON.parse(' . json_encode(Url::to(['/item-category/create'])) . ')
+    val =  text
+    jQuery.getJSON(url,  {"Category":{"text":val}})
+     .done(function() {
+    console.log( "second success" );
+  })
+  .fail(function() {
+    console.log( "error" );
+  })
+}
+';
+$js = new JsExpression($js);
+Yii::$app->view->registerJS($js);
 return [
     /* [
          'class' => 'kartik\grid\CheckboxColumn',
@@ -92,7 +115,23 @@ return [
         }
     ],
     [
-        'editableOptions' => ['inputType' => Editable::INPUT_DROPDOWN_LIST, 'data' => ArrayHelper::map(\app\models\Category::find()->asArray()->all(), 'id', 'text'), 'formOptions' => ['action' => ['/items/edititem']], 'options' => ['multiple' => true]],
+        'editableOptions' => [
+            'inputType' => Editable::INPUT_SELECT2,
+            'asPopover' => false,
+            //     'data' =>,
+            'formOptions' => ['action' => ['/items/edititem']],
+            /*'options' => []*/
+            'options' => [
+                'data' => ArrayHelper::map(\app\models\Category::find()->asArray()->all(), 'id', 'text'),
+                'pluginOptions' => ['multiple' => true, 'language' => [
+
+                    'noResults' => new JsExpression('function () {return "<button type=\"button\" class=\"btn btn-info btn-xs addNewCategory\" >Добавить</button>"; }'),
+                ],
+                    'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
+                    'allowClear' => true,]
+            ],
+
+        ],
         'class' => '\kartik\grid\EditableColumn',
         'attribute' => 'category_ids',
         'format' => 'raw',
@@ -248,4 +287,4 @@ return [
             'data-confirm-message' => 'Are you sure want to delete this item'],
     ],
 
-];   
+];
