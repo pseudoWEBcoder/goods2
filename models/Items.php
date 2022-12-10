@@ -159,7 +159,7 @@ class Items extends \yii\db\ActiveRecord
      */
     public function getItemCategory()
     {
-        return $this->hasOne(ItemCategory::className(), ['item_id' => 'id']);
+        return $this->hasMany(ItemCategory::className(), ['item_id' => 'id']);
     }
 
     public function getformatedPrice()
