@@ -74,7 +74,7 @@ class Items extends \yii\db\ActiveRecord
             [['created', 'updated', 'price', 'nds_sum', 'nds_rate', 'sum', 'receipt_id', 'nds18', 'nds10', 'calculation_type_sign', 'calculation_subject_sign', 'nds_no', 'payment_type', 'nds', 'nds_calculated10', 'nds_calculated18', 'payment_agent_by_product_type', 'product_type', 'excise', 'commit', 'status_id'], 'integer'],
             [['quantity'], 'number'],
             [['name', 'modifiers', 'properties'], 'string'],
-            [['category_ids'], 'each', 'rule' => ['integer']],
+            //[['category_ids'], 'each', 'rule' => ['integer']],
             [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => ItemStatuses::className(), 'targetAttribute' => ['status_id' => 'id']],
             [['receipt_id'], 'exist', 'skipOnError' => true, 'targetClass' => Receipt::className(), 'targetAttribute' => ['receipt_id' => 'id']],
         ];

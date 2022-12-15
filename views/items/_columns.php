@@ -10,22 +10,19 @@ use yii\web\JsExpression;
 /* @var $this yii\web\View */
 /* @var $model app\models\Items */
 $createCategoryTag = /** @lang JavaScript */
-    '
-async function (params) {
-    // Don\'t offset to create a tag if there is no @ symbol
-    if (params.term.indexOf(\'@\') === -1) {
-        // Return null to disable tag creation
-        return null;
-    }
-  category =   await addNewCategory(params.term)
-  if  (category && (\'id\' in  category)&& category.id)
-    return {
-    id: category.id,
-      text: params.term
-    }
-    else  return  null;
-    }
-    ';
+    'function(params) {
+                  let term = $.trim(params.term);
+                  if (term.length < 3)
+                  {
+                      return null
+                  }
+
+                  return {
+                      id: term,
+                      text: term,
+                      newTag: true,
+                  }
+              }';
 $js = /** @lang JavaScript */
     '
 //jQuery(document).on("click",  ".addNewCategory",  function(event, el) {
@@ -45,6 +42,16 @@ $js = /** @lang JavaScript */
   })
   if(ok)
       return  result  
+}
+';
+$onselect = /** @lang JavaScript */
+    'function (data, tag) {
+             // let tag = e.params.data;
+               data.unshift(tag);
+              if (tag.newTag === true)
+              {
+                 addNewCategory(tag.text)
+              }
 }
 ';
 $js = new JsExpression($js);
@@ -143,10 +150,11 @@ return [
             /*'options' => []*/
             'options' => [
                 'data' => ArrayHelper::map(\app\models\Category::find()->asArray()->all(), 'id', 'text'),
-                'pluginOptions' => ['tags' => true, 'multiple' => true, 'createTag' => new JsExpression($createCategoryTag), 'language' => [
+                'pluginOptions' => ['tags' => true, 'multiple' => true,/* 'createTag' => new JsExpression($createCategoryTag), 'tokenSeparators'=> [';'],*/
+                    'select2:select' => new JsExpression($onselect), 'language' => [
 
-                    ///      'noResults' => new JsExpression('function (term) {debugger;return `<button type="button" class="btn btn-info btn-xs addNewCategory" >Добавить &laquo;${term}&raquo;</button>`; }'),
-                ],
+                        ///      'noResults' => new JsExpression('function (term) {debugger;return `<button type="button" class="btn btn-info btn-xs addNewCategory" >Добавить &laquo;${term}&raquo;</button>`; }'),
+                    ],
                     'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
                     'allowClear' => true,]
             ],

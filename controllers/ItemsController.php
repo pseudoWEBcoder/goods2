@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Category;
 use app\models\Comment;
 use app\models\CommentSearch;
 use app\models\ItemCategory;
@@ -46,6 +47,22 @@ class ItemsController extends Controller
                     return '';                                   // empty is same as $value
                 },
                 'outputMessage' => function ($model, $attribute, $key, $index) {
+                    if (isset($_POST["Items"][$index]["category_ids"]))
+                        foreach ($_POST["Items"][$index]["category_ids"] as $index => $category_id) {
+                            if (is_numeric($category_id))
+                                continue;/* отлично  эта  сама  создасться */
+                            else {
+                                $exists = Category::find()->where(['text' => $category_id])->exists();
+                                if (!$exists) {
+                                    $category = new Category (['text' => $category_id]);
+                                    if ($category->save()) {
+                                        $itemcategory = new ItemCategory(['item_id' => $model->id, 'category_id' => $category->id]);
+                                        $itemcategory->save();
+                                        $model->refresh();
+                                    }
+                                }
+                            }
+                        }
                     return '';                                  // any custom error after model save
                 },
                 // 'showModelErrors' => true,                     // show model errors after save
@@ -100,6 +117,7 @@ class ItemsController extends Controller
             return '<div class="alert alert-danger">No data found</div>';
         }
     }
+
     public function actionCommit($id, $status = null)
     {
 //Yii::$app->response='json';
