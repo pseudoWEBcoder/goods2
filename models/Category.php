@@ -21,6 +21,12 @@ class Category extends \yii\db\ActiveRecord
         return 'category';
     }
 
+    public function getSortbycountitems()
+    {
+        return count($this->items);
+
+    }
+
     public function behaviors()
     {
         return [
