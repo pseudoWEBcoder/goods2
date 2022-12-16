@@ -1,6 +1,7 @@
 <?php
 
 use kartik\grid\GridView;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\Pjax;
 
@@ -33,6 +34,29 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'time:datetime',
             'text:ntext',
+            [
+                'attribute' => 'items',
+                'label' => 'товары',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    $cn = count($model->items);
+
+                    return $cn ? \yii\bootstrap\Collapse::widget([
+                        'items' => [
+                            'количество' => $cn,
+//                'Second panel' => [
+//                    'content' => 'This is the second collapsable menu',
+//                ],
+                            [
+                                'label' => 'список',
+                                'content' => Html::ul(ArrayHelper::map($model->items, 'id', 'name'))
+                            ],
+                        ]
+                    ]) : null;
+
+                }
+
+            ],
 
             [
                 'class' => 'yii\grid\ActionColumn',

@@ -56,6 +56,19 @@ class Category extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getItems()
+    {
+        return $this->hasMany(Items::className(), ['id' => 'item_id'])->via('itemCategory');
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getItemCategory()
+    {
+        return $this->hasMany(ItemCategory::className(), ['category_id' => 'id']);
+    }
+
     public static function listAll($keyField = 'id', $valueField = 'name', $asArray = true)
     {
         $query = static::find();
