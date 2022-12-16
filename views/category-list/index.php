@@ -11,7 +11,7 @@ use yii\widgets\Pjax;
  * @var app\models\searches\CategorySearch $searchModel
  */
 
-$this->title = 'Categories';
+$this->title = 'Категории';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="category-index">

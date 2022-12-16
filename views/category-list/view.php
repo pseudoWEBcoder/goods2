@@ -9,7 +9,7 @@ use yii\helpers\Html;
  */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Categories', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'категории', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="category-view">
