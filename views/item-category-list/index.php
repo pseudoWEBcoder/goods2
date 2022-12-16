@@ -1,7 +1,8 @@
 <?php
 
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\searches\ItemCategorySearch */
@@ -25,9 +26,35 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'item_id',
-            'category_id',
+//            'id',
+//            'item_id',
+//            'category_id',
+
+            ['attribute' => 'item_name',
+                'label' => 'товар',
+                'value' => function ($model) {
+                    return $model->item->name;
+                },
+                'filterType' => GridView::FILTER_SELECT2,
+                'filterWidgetOptions' => [
+                    'pluginOptions' => [
+                        'ajax' => [
+                            'url' => Url::to(['/items/json']),
+                            'dataType' => 'json',
+                            'data' => new \yii\web\JsExpression('function(params) { return {q:params.term}; }')
+                        ]
+                    ]
+                ],
+                //  'filter' => \yii\helpers\ArrayHelper::map(\app\models\Items::find()->asArray()->all(), 'id', 'name')
+            ], ['attribute' => 'category_name',
+                'label' => 'категория',
+                'value' => function ($model) {
+                    return $model->category->text;
+                },
+                'filterType' => GridView::FILTER_SELECT2,
+
+                'filter' => \yii\helpers\ArrayHelper::map(\app\models\Category::find()->asArray()->all(), 'id', 'text')
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

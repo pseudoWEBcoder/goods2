@@ -14,10 +14,14 @@ class ItemCategorySearch extends ItemCategory
     /**
      * {@inheritdoc}
      */
+    public $item_name;
+    public $category_name;
+
     public function rules()
     {
         return [
             [['id', 'item_id', 'category_id'], 'integer'],
+            [['item_name', 'category_name'], 'safe'],
         ];
     }
 

@@ -67,14 +67,19 @@ $config = [
         */
     ],
     'params' => $params,
-    'modules' => ['gridview' => ['class' => 'kartik\grid\Module',], 'gallery' => [
-        'class' => 'dvizh\gallery\Module',
-        'imagesStorePath' => dirname(dirname(__DIR__)) . '/web/images/store', //path to origin images
-        'imagesCachePath' => dirname(dirname(__DIR__)) . '/web/images/cache', //path to resized copies
-        'graphicsLibrary' => 'GD',
-        'placeHolderPath' => '@webroot/images/placeHolder.png',
-        'adminRoles' => ['administrator', 'admin', 'superadmin'],
-    ],],
+    'modules' => [
+        'gridview' => [
+            'class' => 'kartik\grid\Module',
+        ],
+        'gallery' => [
+
+            'class' => 'dvizh\gallery\Module',
+            'imagesStorePath' => dirname(dirname(__DIR__)) . '/web/images/store', //path to origin images
+            'imagesCachePath' => dirname(dirname(__DIR__)) . '/web/images/cache', //path to resized copies
+            'graphicsLibrary' => 'GD',
+            'placeHolderPath' => '@webroot/images/placeHolder.png',
+            'adminRoles' => ['administrator', 'admin', 'superadmin'],
+        ],],
 ];
 //var_dump(YII_ENV_DEV);
 if (YII_ENV_DEV) {
@@ -86,13 +91,17 @@ if (YII_ENV_DEV) {
         'allowedIPs' => ['[::ffff:127.0.0.1]', '127.0.0.1', '::1'],
     ];
 
-    $config['bootstrap'][] = 'gii';
+
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
         'allowedIPs' => ['[::ffff:127.0.0.1]', '127.0.0.1', '::1'],
     ];
 //$config['modules']['gii']['generators'] = [ 'kartikgii-crud' => ['class' => 'warrence\kartikgii\crud\Generator'], ];
+    $config['modules']['gii']['class'] = 'yii\gii\Module';
+    $config['modules']['gii']['generators'] = [
+        'kartikgii-crud' => ['class' => 'warrence\kartikgii\crud\Generator'],
+    ];
 }
 
 return $config;

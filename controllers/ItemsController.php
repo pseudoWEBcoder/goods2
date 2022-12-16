@@ -11,6 +11,7 @@ use app\models\ItemsSearch;
 use app\models\ItemStatuses;
 use kartik\grid\EditableColumnAction;
 use Yii;
+use yii\db\Query;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -116,6 +117,25 @@ class ItemsController extends Controller
         } else {
             return '<div class="alert alert-danger">No data found</div>';
         }
+    }
+
+    public function actionJson($q = null, $id = null)
+    {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $out = ['results' => ['id' => '', 'text' => '']];
+        if (!is_null($q)) {
+            $query = new Query();
+            $query->select('id, name AS text')
+                ->from(Items::tableName())
+                ->where(['like', 'name', $q])
+                ->limit(20);
+            $command = $query->createCommand();
+            $data = $command->queryAll();
+            $out['results'] = array_values($data);
+        } elseif ($id > 0) {
+            $out['results'] = ['id' => $id, 'text' => Items::find($id)->name];
+        }
+        return $out;
     }
 
     public function actionCommit($id, $status = null)
