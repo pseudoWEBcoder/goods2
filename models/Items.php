@@ -110,7 +110,7 @@ class Items extends \yii\db\ActiveRecord
             'payment_agent_by_product_type' => 'Платежный агент по типу продукта',
             'product_type' => 'Тип продукта',
             'excise' => 'Акциз',
-            'commit' => 'Совершить',
+            'commit' => 'коммит',
             'status_id' => 'ID статуса',
         ];
     }

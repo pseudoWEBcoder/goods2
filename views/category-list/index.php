@@ -52,6 +52,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'content' => Html::ol(ArrayHelper::map($model->items, 'id', function ($model) {
                                     return Html::a($model->name, ['/items', 'ItemsSearch' => ['id' => $model->id]]);
                                 }), ['encode' => false])
+                            ], [
+                                'label' => 'сумма',
+                                'content' => Html::tag('p', number_format(array_sum($arr = ArrayHelper::map($model->items, 'id', function ($model) {
+                                        return $model->sum * 1;
+                                    })) / 100, 0, '.', ' '))
                             ],
                         ]
                     ]) : null;
