@@ -49,7 +49,9 @@ $this->params['breadcrumbs'][] = $this->title;
 //                ],
                             [
                                 'label' => 'список',
-                                'content' => Html::ul(ArrayHelper::map($model->items, 'id', 'name'))
+                                'content' => Html::ol(ArrayHelper::map($model->items, 'id', function ($model) {
+                                    return Html::a($model->name, ['/items', 'ItemsSearch' => ['id' => $model->id]]);
+                                }), ['encode' => false])
                             ],
                         ]
                     ]) : null;

@@ -21,7 +21,7 @@ use yii\helpers\Html;
         'columns' => 1,
         'attributes' => [
 
-            'time' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Time...']],
+         //   'time' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Time...']],
 
             'text' => ['type' => Form::INPUT_TEXTAREA, 'options' => ['placeholder' => 'Enter Text...', 'rows' => 6]],
 

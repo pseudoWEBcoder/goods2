@@ -27,7 +27,7 @@ class CategorySearch extends Category
 
     public function search($params)
     {
-        $query = Category::find()->joinWith(['items']);
+        $query = Category::find()->with(['items']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

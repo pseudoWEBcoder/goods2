@@ -51,7 +51,7 @@ class ItemsController extends Controller
                     if (isset($_POST["Items"][$index]["category_ids"]))
                         foreach ($_POST["Items"][$index]["category_ids"] as $index => $category_id) {
                             if (is_numeric($category_id))
-                                continue;/* отлично  эта  сама  создасться */
+                                continue;/* отлично эта сама создастся */
                             else {
                                 $exists = Category::find()->where(['text' => $category_id])->exists();
                                 if (!$exists) {
