@@ -30,7 +30,8 @@
       "voskobovich/yii2-many-many-behavior": "~3.0",
       "kartik-v/yii2-editable": "dev-master",
       "voskobovich/yii2-linker-behavior": "*",
-      "warrence/yii2-kartikgii": "dev-master"
+      "warrence/yii2-kartikgii": "dev-master",
+      "kartik-v/yii2-editors": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

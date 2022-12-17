@@ -21,15 +21,14 @@ use yii\helpers\Html;
         'columns' => 1,
         'attributes' => [
 
-            'author_id' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Author ID...']],
+            // 'author_id' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Author ID...']],
 
-            'created' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Created...']],
+            //  'created' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Created...']],
 
-            'updated' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Updated...']],
+            //  'updated' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Updated...']],
+            'title' => ['type' => Form::INPUT_TEXT, 'options' => []],
+            'body' => ['type' => Form::INPUT_WIDGET, 'widgetClass' => 'kartik\editors\Summernote', 'options' => []],
 
-            'body' => ['type' => Form::INPUT_TEXTAREA, 'options' => ['placeholder' => 'Enter Body...', 'rows' => 6]],
-
-            'title' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Title...', 'maxlength' => 255]],
 
         ]
 

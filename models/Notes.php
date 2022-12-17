@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use yii\behaviors\TimestampBehavior;
+
 /**
  * This is the model class for table "notes".
  *
@@ -28,10 +30,22 @@ class Notes extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['author_id'], 'required'],
+            [['author_id'], 'default', 'value' => \Yii::$app->getUser()->getId()],
             [['author_id', 'created', 'updated'], 'integer'],
             [['body'], 'string'],
             [['title'], 'string', 'max' => 255],
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'createdAtAttribute' => 'created',
+                'updatedAtAttribute' => 'updated',
+                //  'value' => new Expression('NOW()'),
+            ],
         ];
     }
 
@@ -43,10 +57,10 @@ class Notes extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'author_id' => 'Author ID',
-            'created' => 'Created',
-            'updated' => 'Updated',
-            'title' => 'Title',
-            'body' => 'Body',
+            'created' => 'создан',
+            'updated' => 'изменен',
+            'title' => 'заголовок',
+            'body' => 'текст',
         ];
     }
 }

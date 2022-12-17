@@ -30,10 +30,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'author_id',
-            'created',
-            'updated',
-            'title',
-            'body:ntext',
+            'created:time',
+            'updated:time',
+            'title:ntext',
+            'body:html',
         ],
         'deleteOptions' => [
             'url' => ['delete', 'id' => $model->id],
