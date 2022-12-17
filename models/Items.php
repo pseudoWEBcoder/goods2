@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use Yii;
+
 /**
  * This is the model class for table "items".
  *
@@ -65,6 +67,7 @@ class Items extends \yii\db\ActiveRecord
 
         ];
     }
+
     /**
      * {@inheritdoc}
      */
@@ -86,32 +89,39 @@ class Items extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'created' => 'создан',
-            'updated' => 'обновлен',
-            'quantity' => 'количество',
-            'price' => 'цена',
-            'name' => 'имя',
-            'nds_sum' => 'сумма с НДС',
-            'nds_rate' => 'ставка  НДС',
-            'sum' => 'сумма',
-            'receipt_id' => 'чек ID',
-            'nds18' => 'НДС18',
-            'nds10' => 'НДС10',
-            'calculation_type_sign' => 'Знак типа расчета',
-            'calculation_subject_sign' => 'Знак предмета расчета',
-            'modifiers' => 'Модификаторы',
-            'nds_no' => 'Нет НДС',
-            'payment_type' => 'Способ оплаты',
-            'nds' => 'НДС',
-            'nds_calculated10' => 'НДС рассчитано10',
-            'nds_calculated18' => 'НДС рассчитано18',
-            'properties' => 'Характеристики',
-            'payment_agent_by_product_type' => 'Платежный агент по типу продукта',
-            'product_type' => 'Тип продукта',
-            'excise' => 'Акциз',
-            'commit' => 'коммит',
-            'status_id' => 'ID статуса',
+            'id' => Yii::t('app', 'ID'),
+            'created' => Yii::t('app', 'Created'),
+            'updated' => Yii::t('app', 'Updated'),
+            'quantity' => Yii::t('app', 'Quantity'),
+            'price' => Yii::t('app', 'Price'),
+            'name' => Yii::t('app', 'Name'),
+            'nds_sum' => Yii::t('app', 'Nds Sum'),
+            'nds_rate' => Yii::t('app', 'Nds Rate'),
+            'sum' => Yii::t('app', 'Sum'),
+            'receipt_id' => Yii::t('app', 'Receipt ID'),
+            'nds18' => Yii::t('app', 'Nds18'),
+            'nds10' => Yii::t('app', 'Nds10'),
+            'calculation_type_sign' => Yii::t('app', 'Calculation Type Sign'),
+            'calculation_subject_sign' => Yii::t('app', 'Calculation Subject Sign'),
+            'modifiers' => Yii::t('app', 'Modifiers'),
+            'nds_no' => Yii::t('app', 'Nds No'),
+            'payment_type' => Yii::t('app', 'Payment Type'),
+            'nds' => Yii::t('app', 'Nds'),
+            'nds_calculated10' => Yii::t('app', 'Nds Calculated10'),
+            'nds_calculated18' => Yii::t('app', 'Nds Calculated18'),
+            'properties' => Yii::t('app', 'Properties'),
+            'payment_agent_by_product_type' => Yii::t('app', 'Payment Agent By Product Type'),
+            'product_type' => Yii::t('app', 'Product Type'),
+            'excise' => Yii::t('app', 'Excise'),
+            'commit' => Yii::t('app', 'Commit'),
+            'status_id' => Yii::t('app', 'Status ID'),
+            'nomenclature_code' => Yii::t('app', 'Nomenclature Code'),
+            'unit' => Yii::t('app', 'Unit'),
+            'properties_item' => Yii::t('app', 'Properties Item'),
+            'provider_inn' => Yii::t('app', 'Provider Inn'),
+            'product_code_data' => Yii::t('app', 'Product Code Data'),
+            'category' => Yii::t('app', 'Category'),
+            'product_code_data_error' => Yii::t('app', 'Product Code Data Error'),
         ];
     }
 
