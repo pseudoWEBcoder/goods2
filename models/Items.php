@@ -60,7 +60,7 @@ class Items extends \yii\db\ActiveRecord
             [
                 'class' => \voskobovich\linker\LinkerBehavior::className(),
                 'relations' => [
-                    'category_ids' => 'category',
+                    'category_ids' => 'categories',
 
                 ],
             ],
@@ -161,7 +161,8 @@ class Items extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getCategory()
+    //categories
+    public function getCategories()
     {
         return $this->hasMany(Category::class, ['id' => 'category_id'])->via('itemCategory');
     }

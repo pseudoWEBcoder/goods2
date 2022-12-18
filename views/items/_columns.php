@@ -166,12 +166,8 @@ return [
         'format' => 'raw',
         'label' => 'категория',
         'value' => function ($model, $val, $key) {
-            if ($model->category)
-                foreach ($model->category as $item) {
 
-                }
-            //  return  '<b>OK</b>';
-            return ($category = $model->category) ? Html::ul(ArrayHelper::map($category, 'id', 'text')) : null;
+            return ($category = $model->categories) ? Html::ul(ArrayHelper::map($category, 'id', 'text')) : null;
         }
     ],
     [
