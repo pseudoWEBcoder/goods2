@@ -78,8 +78,9 @@ class Items extends \yii\db\ActiveRecord
             [['quantity'], 'number'],
             [['name', 'modifiers', 'properties'], 'string'],
             [['category_ids'], 'each', 'rule' => ['safe']],
-            [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => ItemStatuses::className(), 'targetAttribute' => ['status_id' => 'id']],
-            [['receipt_id'], 'exist', 'skipOnError' => true, 'targetClass' => Receipt::className(), 'targetAttribute' => ['receipt_id' => 'id']],
+            [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => ItemStatuses::class, 'targetAttribute' => ['status_id' => 'id']],
+            [['receipt_id'], 'exist', 'skipOnError' => true, 'targetClass' => Receipt::class, 'targetAttribute' => ['receipt_id' => 'id']],
+            [['place_id'], 'exist', 'skipOnError' => true, 'targetClass' => Places::class, 'targetAttribute' => ['place_id' => 'id']],
         ];
     }
 
@@ -122,6 +123,7 @@ class Items extends \yii\db\ActiveRecord
             'product_code_data' => Yii::t('app', 'Product Code Data'),
             'category' => Yii::t('app', 'Category'),
             'product_code_data_error' => Yii::t('app', 'Product Code Data Error'),
+            'place_id' => Yii::t('app', 'Place ID'),
         ];
     }
 
@@ -153,7 +155,7 @@ class Items extends \yii\db\ActiveRecord
      */
     public function getStatus()
     {
-        return $this->hasOne(ItemStatuses::className(), ['id' => 'status_id']);
+        return $this->hasOne(ItemStatuses::class, ['id' => 'status_id']);
     }
 
     /**
@@ -161,7 +163,7 @@ class Items extends \yii\db\ActiveRecord
      */
     public function getCategory()
     {
-        return $this->hasMany(Category::className(), ['id' => 'category_id'])->via('itemCategory');
+        return $this->hasMany(Category::class, ['id' => 'category_id'])->via('itemCategory');
     }
 
     /**
@@ -169,7 +171,12 @@ class Items extends \yii\db\ActiveRecord
      */
     public function getItemCategory()
     {
-        return $this->hasMany(ItemCategory::className(), ['item_id' => 'id']);
+        return $this->hasMany(ItemCategory::class, ['item_id' => 'id']);
+    }
+
+    public function getPlace()
+    {
+        return $this->hasOne(Places::class, ['id' => 'place_id']);
     }
 
     public function getformatedPrice()
@@ -192,6 +199,6 @@ class Items extends \yii\db\ActiveRecord
      */
     public function getReceipt()
     {
-        return $this->hasOne(Receipt::className(), ['id' => 'receipt_id']);
+        return $this->hasOne(Receipt::class, ['id' => 'receipt_id']);
     }
 }

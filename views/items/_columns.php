@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Places;
 use kartik\editable\Editable;
 use kartik\grid\GridView;
 use yii\helpers\ArrayHelper;
@@ -131,7 +132,7 @@ return [
         'attribute' => 'commit',
         'format' => 'raw',
         'value' => function ($model, $key, $w) {
-            $cn = $model->getComments()->count();
+            $cn = count($model->comments);
             return
                 Html::a('<i class="glyphicon glyphicon-comment"></i>&nbsp; ' . ($cn > 0 ? Html::tag('span', $cn, ['class' => 'badge']) : '' . $cn), ["comment", 'id' => $model->id], ['role' => 'modal-remote', 'class' => 'pull-left'])
                 . Html::a('<i class="glyphicon glyphicon-open"></i>&nbsp; ' . (Html::tag('span', '', ['class' => 'badge'])), ["commit", 'id' => $model->id, 'status' => 'open'], ['role' => 'modal-remote', 'class' => 'pull-right'])
@@ -170,8 +171,26 @@ return [
 
                 }
             //  return  '<b>OK</b>';
-            return ($category = $model->getCategory()->all()) ? Html::ul(ArrayHelper::map($category, 'id', 'text')) : null;
+            return ($category = $model->category) ? Html::ul(ArrayHelper::map($category, 'id', 'text')) : null;
         }
+    ],
+    [
+        'editableOptions' => [
+            'inputType' => Editable::INPUT_SELECT2,
+            'asPopover' => false,
+            //     'data' =>,
+            'formOptions' => ['action' => ['/items/edititem']],
+            /*'options' => []*/
+            'options' => [
+                'data' => ArrayHelper::map(Places::find()->asArray()->all(), 'id', 'name'),
+                'pluginOptions' => []],
+
+        ],
+        'class' => '\kartik\grid\EditableColumn',
+        'attribute' => 'place_id',
+        'format' => 'raw',
+        'label' => 'место',
+        'value' => 'place.name'
     ],
     [
         'class' => '\kartik\grid\DataColumn',

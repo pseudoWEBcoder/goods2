@@ -38,6 +38,9 @@ class ItemsController extends Controller
                         return $fmt->asDecimal($value, 2);       // return formatted value if desired
                     } elseif ($attribute === 'publish_date') {   // selective validation by attribute
                         return $fmt->asDate($value, 'php:Y-m-d');// return formatted value if desired
+                    } elseif ($attribute === 'place_id') {
+                        $value = $model->place->name;
+                        return $value;
                     } elseif ($attribute === 'category') {
                         //$value = $model->category_ids = [$value];
                         return $value;
