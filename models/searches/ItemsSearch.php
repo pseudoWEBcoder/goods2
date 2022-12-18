@@ -7,7 +7,7 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * ItemsSearch represents the model behind the search form of `app\models\Items`.
+ * ItemsSearch represents the model behind the search form of `\app\models\Items`.
  */
 class ItemsSearch extends Items
 {
@@ -17,7 +17,7 @@ class ItemsSearch extends Items
     public function rules()
     {
         return [
-            [['id', 'created', 'updated', 'price', 'nds_sum', 'nds_rate', 'sum', 'receipt_id', 'nds18', 'nds10', 'calculation_type_sign', 'calculation_subject_sign', 'nds_no', 'payment_type', 'nds', 'nds_calculated10', 'nds_calculated18', 'payment_agent_by_product_type', 'product_type', 'excise', 'commit'], 'integer'],
+            [['id', 'created', 'updated', 'price', 'nds_sum', 'nds_rate', 'sum', 'receipt_id', 'nds18', 'nds10', 'calculation_type_sign', 'calculation_subject_sign', 'nds_no', 'payment_type', 'nds', 'nds_calculated10', 'nds_calculated18', 'payment_agent_by_product_type', 'product_type', 'excise', 'commit', 'category', 'place_id'], 'integer'],
             [['quantity'], 'number'],
             [['name', 'modifiers', 'properties', 'status_id', 'nomenclature_code', 'unit', 'properties_item', 'provider_inn', 'product_code_data', 'product_code_data_error'], 'safe'],
         ];
@@ -56,9 +56,8 @@ class ItemsSearch extends Items
             // $query->where('0=1');
             return $dataProvider;
         }
-
         $table = $this->tableName() . '.';
-// grid filtering conditions
+        // grid filtering conditions
         $query->andFilterWhere([
             $table . 'id' => $this->id,
             $table . 'created' => $this->created,
@@ -82,11 +81,20 @@ class ItemsSearch extends Items
             $table . 'product_type' => $this->product_type,
             $table . 'excise' => $this->excise,
             $table . 'commit' => $this->commit,
+            $table . 'category' => $this->category,
+            $table . 'place_id' => $this->place_id,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'modifiers', $this->modifiers])
-            ->andFilterWhere(['like', 'properties', $this->properties]);
+        $query->andFilterWhere(['like', $table . 'name', $this->name])
+            ->andFilterWhere(['like', $table . 'modifiers', $this->modifiers])
+            ->andFilterWhere(['like', $table . 'properties', $this->properties])
+            ->andFilterWhere(['like', $table . 'status_id', $this->status_id])
+            ->andFilterWhere(['like', $table . 'nomenclature_code', $this->nomenclature_code])
+            ->andFilterWhere(['like', $table . 'unit', $this->unit])
+            ->andFilterWhere(['like', $table . 'properties_item', $this->properties_item])
+            ->andFilterWhere(['like', $table . 'provider_inn', $this->provider_inn])
+            ->andFilterWhere(['like', $table . 'product_code_data', $this->product_code_data])
+            ->andFilterWhere(['like', $table . 'product_code_data_error', $this->product_code_data_error]);
 
         return $dataProvider;
     }
