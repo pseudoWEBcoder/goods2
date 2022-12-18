@@ -74,6 +74,7 @@ AppAsset::register($this);
                 ['label' => ' категории', 'url' => ['/category-list']],
                 ['label' => 'товары-категории', 'url' => ['/item-category-list']],
                 ['label' => 'места', 'url' => ['/places']],
+                ['label' => 'статусы', 'url' => ['/item-statuses']],
                 '<li class="divider"></li>',
                 ['label' => 'заметки', 'url' => ['/notes']],
 

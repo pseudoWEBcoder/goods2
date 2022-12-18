@@ -41,7 +41,7 @@ class ItemsSearch extends Items
      */
     public function search($params)
     {
-        $query = Items::find()->with(['place', 'сomments', 'status', 'status.icon', 'category', 'itemCategory', 'receipt']);
+        $query = Items::find()->with(['place', 'comments', 'status', 'status', 'categories', 'itemCategory', 'receipt']);
 
         // add conditions that should always apply here
 

@@ -10,6 +10,8 @@ use yii\web\JsExpression;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Items */
+
+$statuses = \app\models\ItemStatuses::find()->select(['text', 'text'])->indexBy('id')->column();
 $createCategoryTag = /** @lang JavaScript */
     'function(params) {
                   let term = $.trim(params.term);
@@ -75,18 +77,30 @@ return [
         'expandOneOnly' => true
     ],
     [
+        'editableOptions' => [
+            'inputType' => Editable::INPUT_SELECT2,
+            'asPopover' => false,
+            //     'data' =>,
+            'formOptions' => ['action' => ['/items/edititem']],
+            /*'options' => []*/
+            'options' => [
+                'data' => $statuses,
 
+            ],
+
+        ],
+        'class' => '\kartik\grid\EditableColumn',
         'format' => 'raw',
         'attribute' => 'status_id',
         //'filter' => ['да', 'нет'],
-        'filter' => \app\models\ItemStatuses::find()->select(['text', 'text'])->indexBy('id')->column(),
+        'filter' => $statuses,
         'value' => /**
          * @param $model \app\models\Items
          * @param $key
          * @param $w
          */
             function ($model, $key, $w) {
-                return Html::tag('i', null, ['class' => $model->status->icon]);
+                return implode(' ', [Html::tag('i', null, ['class' => $model->status->icon]), ($model->status->text ?? '')]);
             }
     ],
     [

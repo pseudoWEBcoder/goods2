@@ -7,8 +7,8 @@ use app\models\Comment;
 use app\models\CommentSearch;
 use app\models\ItemCategory;
 use app\models\Items;
-use app\models\ItemsSearch;
 use app\models\ItemStatuses;
+use app\models\searches\ItemsSearch;
 use kartik\grid\EditableColumnAction;
 use Yii;
 use yii\db\Query;
@@ -38,6 +38,9 @@ class ItemsController extends Controller
                         return $fmt->asDecimal($value, 2);       // return formatted value if desired
                     } elseif ($attribute === 'publish_date') {   // selective validation by attribute
                         return $fmt->asDate($value, 'php:Y-m-d');// return formatted value if desired
+                    } elseif ($attribute === 'status_id') {
+                        $value = $model->status->text;
+                        return $value;
                     } elseif ($attribute === 'place_id') {
                         $value = $model->place->name;
                         return $value;
