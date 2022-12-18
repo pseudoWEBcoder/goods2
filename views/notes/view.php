@@ -33,7 +33,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'created:time',
             'updated:time',
             'title:ntext',
-            'body:html',
+
+            ['attribute' => 'body', 'format' => 'html', 'type' => DetailView::INPUT_WIDGET, 'widgetOptions' => ['class' => 'kartik\editors\Summernote']]
         ],
         'deleteOptions' => [
             'url' => ['delete', 'id' => $model->id],
