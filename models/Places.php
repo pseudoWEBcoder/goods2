@@ -21,8 +21,8 @@ class Places extends \yii\db\ActiveRecord
         return [
             [
                 'class' => TimestampBehavior::class,
-                'createdAtAttribute' => 'time',
-                'updatedAtAttribute' => false,
+                'createdAtAttribute' => 'created',
+                'updatedAtAttribute' => 'updated',
                 //  'value' => new Expression('NOW()'),
             ],
         ];

@@ -21,13 +21,12 @@ use yii\helpers\Html;
         'columns' => 1,
         'attributes' => [
 
-            'created' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Созданный...']],
+            //   'created' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Созданный...']],
 
-            'updated' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Обновлено...']],
-
+            //   'updated' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Обновлено...']],
+            'name' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Имя...', 'maxlength' => 255]],
             'description' => ['type' => Form::INPUT_TEXTAREA, 'options' => ['placeholder' => 'Enter Description...', 'rows' => 6]],
 
-            'name' => ['type' => Form::INPUT_TEXT, 'options' => ['placeholder' => 'Enter Имя...', 'maxlength' => 255]],
 
         ]
 
