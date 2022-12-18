@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Yii;
 use yii\behaviors\TimestampBehavior;
 
 /**
@@ -30,7 +31,7 @@ class Notes extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['author_id'], 'default', 'value' => \Yii::$app->getUser()->getId()],
+            [['author_id'], 'default', 'value' => Yii::$app->getUser()->getId()],
             [['author_id', 'created', 'updated'], 'integer'],
             [['body'], 'string'],
             [['title'], 'string', 'max' => 255],
@@ -55,12 +56,12 @@ class Notes extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'author_id' => 'Author ID',
-            'created' => 'создан',
-            'updated' => 'изменен',
-            'title' => 'заголовок',
-            'body' => 'текст',
+            'id' => Yii::t('app', 'ID'),
+            'author_id' => Yii::t('app', 'Author ID'),
+            'created' => Yii::t('app', 'Created'),
+            'updated' => Yii::t('app', 'Updated'),
+            'title' => Yii::t('app', 'Title'),
+            'body' => Yii::t('app', 'Body'),
         ];
     }
 }

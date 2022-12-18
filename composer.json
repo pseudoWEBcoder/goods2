@@ -31,7 +31,8 @@
       "kartik-v/yii2-editable": "dev-master",
       "voskobovich/yii2-linker-behavior": "*",
       "warrence/yii2-kartikgii": "dev-master",
-      "kartik-v/yii2-editors": "dev-master"
+      "kartik-v/yii2-editors": "dev-master",
+      "execut/yii2-crud-fields": "^0.50.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

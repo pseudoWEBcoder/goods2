@@ -4,6 +4,8 @@ namespace app\models;
 
 
 
+use Yii;
+
 /**
  * This is the model class for table "item_category".
  *
@@ -53,9 +55,9 @@ class ItemCategory extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'item_id' => 'Item ID',
-            'category_id' => 'Category ID',
+            'id' => Yii::t('app', 'ID'),
+            'item_id' => Yii::t('app', 'Item ID'),
+            'category_id' => Yii::t('app', 'Category ID'),
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Yii;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -71,9 +72,9 @@ class Icons extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'name' => 'Name',
-            'src' => 'Src',
+            'id' => Yii::t('app', 'ID'),
+            'name' => Yii::t('app', 'Name'),
+            'src' => Yii::t('app', 'Src'),
         ];
     }
 }

@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use Yii;
+
 /**
  * This is the model class for table "item_statuses".
  *
@@ -54,11 +56,11 @@ class ItemStatuses extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'text' => 'Text',
-            'color' => 'Color',
-            'icon' => 'Icon',
-            'updated' => 'Updated',
+            'id' => Yii::t('app', 'ID'),
+            'text' => Yii::t('app', 'Text'),
+            'color' => Yii::t('app', 'Color'),
+            'icon' => Yii::t('app', 'Icon'),
+            'updated' => Yii::t('app', 'Updated'),
         ];
     }
 

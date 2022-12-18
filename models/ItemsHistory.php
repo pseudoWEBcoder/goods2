@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use Yii;
+
 /**
  * This is the model class for table "items_history".
  *
@@ -49,11 +51,11 @@ class ItemsHistory extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'items_id' => 'Items ID',
-            'time' => 'Time',
-            'text' => 'Text',
-            'diff' => 'Diff',
+            'id' => Yii::t('app', 'ID'),
+            'items_id' => Yii::t('app', 'Items ID'),
+            'time' => Yii::t('app', 'Time'),
+            'text' => Yii::t('app', 'Text'),
+            'diff' => Yii::t('app', 'Diff'),
         ];
     }
 

@@ -2,7 +2,9 @@
 
 namespace app\models;
 
+use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "category".
@@ -56,9 +58,9 @@ class Category extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'time' => 'Time',
-            'text' => 'Text',
+            'id' => Yii::t('app', 'ID'),
+            'time' => Yii::t('app', 'Time'),
+            'text' => Yii::t('app', 'Text'),
         ];
     }
 

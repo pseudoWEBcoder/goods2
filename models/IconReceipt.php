@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use Yii;
+
 /**
  * This is the model class for table "icon_receipt".
  *
@@ -37,9 +39,9 @@ class IconReceipt extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'icon_id' => 'Icon ID',
-            'receipt_id' => 'Receipt ID',
+            'id' => Yii::t('app', 'ID'),
+            'icon_id' => Yii::t('app', 'Icon ID'),
+            'receipt_id' => Yii::t('app', 'Receipt ID'),
         ];
     }
 }

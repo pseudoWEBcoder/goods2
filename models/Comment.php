@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use Yii;
+
 /**
  * This is the model class for table "comment".
  *
@@ -49,10 +51,10 @@ class Comment extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'time' => 'Time',
-            'text' => 'Text',
-            'items_id' => 'Items ID',
+            'id' => Yii::t('app', 'ID'),
+            'time' => Yii::t('app', 'Time'),
+            'text' => Yii::t('app', 'Text'),
+            'items_id' => Yii::t('app', 'Items ID'),
         ];
     }
 
