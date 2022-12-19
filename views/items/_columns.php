@@ -1,6 +1,5 @@
 <?php
 
-use app\models\Places;
 use kartik\editable\Editable;
 use kartik\grid\GridView;
 use yii\helpers\ArrayHelper;
@@ -12,6 +11,7 @@ use yii\web\JsExpression;
 /* @var $model app\models\Items */
 
 $statuses = \app\models\ItemStatuses::find()->select(['text', 'text'])->indexBy('id')->column();
+$places = \app\models\Places::find()->select(['name', 'name'])->indexBy('id')->column();;
 $createCategoryTag = /** @lang JavaScript */
     'function(params) {
                   let term = $.trim(params.term);
@@ -59,6 +59,7 @@ $onselect = /** @lang JavaScript */
 ';
 $js = new JsExpression($js);
 Yii::$app->view->registerJS($js, yii\web\View::POS_HEAD);
+
 return [
     /* [
          'class' => 'kartik\grid\CheckboxColumn',
@@ -192,7 +193,7 @@ return [
             'formOptions' => ['action' => ['/items/edititem']],
             /*'options' => []*/
             'options' => [
-                'data' => ArrayHelper::map(Places::find()->asArray()->all(), 'id', 'name'),
+                'data' => $places,
                 'pluginOptions' => []],
 
         ],
@@ -200,7 +201,12 @@ return [
         'attribute' => 'place_id',
         'format' => 'raw',
         'label' => 'место',
-        'value' => 'place.name'
+        'value' => 'place.name',
+        'filter' => $places,
+        //  'filterType' => GridView::F,
+//        'filterWidgetOptions' => ['pluginOptions' => [
+//            'allowClear' => true
+//        ],]
     ],
     [
         'class' => '\kartik\grid\DataColumn',

@@ -42,7 +42,7 @@ class ItemsSearch extends Items
     public function search($params)
     {
         $query = Items::find()->with(['place', 'comments', 'status', 'status', 'categories', 'itemCategory', 'receipt']);
-
+        $query->joinWith(['receipt'])->orderBy(['receipt.date_time' => SORT_DESC]);
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([

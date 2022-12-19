@@ -108,7 +108,7 @@ class ItemsController extends Controller
         $searchModel = new ItemsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 //receipt.date_time
-        $dataProvider->query->joinWith(['receipt', 'comments'])->orderBy(['receipt.date_time' => SORT_DESC]);
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
