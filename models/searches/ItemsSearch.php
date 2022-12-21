@@ -11,6 +11,7 @@ use yii\data\ActiveDataProvider;
  */
 class ItemsSearch extends Items
 {
+    public $receipt_date_time;
     /**
      * {@inheritdoc}
      */
@@ -19,7 +20,7 @@ class ItemsSearch extends Items
         return [
             [['id', 'created', 'updated', 'price', 'nds_sum', 'nds_rate', 'sum', 'receipt_id', 'nds18', 'nds10', 'calculation_type_sign', 'calculation_subject_sign', 'nds_no', 'payment_type', 'nds', 'nds_calculated10', 'nds_calculated18', 'payment_agent_by_product_type', 'product_type', 'excise', 'commit', 'category', 'place_id'], 'integer'],
             [['quantity'], 'number'],
-            [['name', 'modifiers', 'properties', 'status_id', 'nomenclature_code', 'unit', 'properties_item', 'provider_inn', 'product_code_data', 'product_code_data_error'], 'safe'],
+            [['name', 'modifiers', 'properties', 'status_id', 'nomenclature_code', 'unit', 'properties_item', 'provider_inn', 'product_code_data', 'product_code_data_error', 'receipt_date_time'], 'safe'],
         ];
     }
 
@@ -85,6 +86,7 @@ class ItemsSearch extends Items
             $table . 'place_id' => $this->place_id,
         ]);
 
+        $query->andFilterWhere(['like', 'receipt.date_time', $this->receipt_date_time]);
         $query->andFilterWhere(['like', $table . 'name', $this->name])
             ->andFilterWhere(['like', $table . 'modifiers', $this->modifiers])
             ->andFilterWhere(['like', $table . 'properties', $this->properties])

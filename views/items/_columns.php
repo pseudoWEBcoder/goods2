@@ -116,7 +116,8 @@ return [
                 $images = $model->getImages();
                 //  foreach($images as $img) {
                 //retun url to full image
-                return '#строчкой ниже ошибка';
+                #строчкой ниже ошибка
+                return '';
                 $a = Html::a(Html::img($images[0]->getUrl('30x30')), $images[0]->getUrl(), ['rel' => 'fancybox', 'title' => $model->name]);
                 return $a;
 //}
@@ -225,6 +226,20 @@ return [
     // 'receipt.date_time',
     [
         'group' => true,
+        'attribute' => 'receipt_date_time',
+        'filterType' => GridView::FILTER_TYPEAHEAD,
+        'filterWidgetOptions' => ['options' => ['placeholder' => ' начните вводить...'],
+            'pluginOptions' => ['highlight' => true],
+            'dataset' => [
+                [
+                    'datumTokenizer' => "Bloodhound.tokenizers.obj.whitespace('value')",
+                    'display' => 'value',
+                    //  'prefetch' => $baseUrl . '/samples/countries.json',
+                    'remote' => [
+                        'url' => Url::to(['/receipt/list']) . '&q=%QUERY',
+                        'wildcard' => '%QUERY'
+                    ]
+                ],]],
         'value' => function ($model, $val, $key) {
 
             return Yii::$app->formatter->asDate($model->receipt->date_time, 'php:d.m.Y h:i:s');

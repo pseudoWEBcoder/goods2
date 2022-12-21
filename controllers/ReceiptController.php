@@ -2,12 +2,14 @@
 
 namespace app\controllers;
 
-use Yii;
 use app\models\Receipt;
 use app\models\searches\ReceiptSearch;
+use Yii;
+use yii\db\Query;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use yii\web\Response;
 
 /**
  * ReceiptController implements the CRUD actions for Receipt model.
@@ -123,5 +125,23 @@ class ReceiptController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionList($q = null)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $query = new Query();
+
+        $query->select('date_time')
+            ->from(Receipt::tableName())
+            ->where('date_time LIKE "%' . $q . '%"')
+            ->orderBy('date_time');
+        $command = $query->createCommand();
+        $data = $command->queryAll();
+        $out = [];
+        foreach ($data as $d) {
+            $out[] = ['value' => $d['date_time']];
+        }
+        return $out;
     }
 }
