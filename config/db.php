@@ -7,7 +7,7 @@ if (is_dir('C:\Windows'))
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'sqlite:'.realpath($dbf),
+    'dsn' => 'mysql:host=localhost;dbname=goods2',
     'username' => 'root',
     'password' => '',
     'charset' => 'utf8',

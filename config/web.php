@@ -2,6 +2,7 @@
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
+$dbsqlite = require __DIR__ . '/dbsqlite.php';
 
 //$db2 = require __DIR__ . '/db2.php';
 $config = [
@@ -62,15 +63,16 @@ $config = [
             ],
         ],
         'db' => $db,
- 'db_finpix' => $db2,
-'formatter' => [
-'locale' => 'ru-RU',
- 'dateFormat' => 'dd.MM.yyyy',
-'defaultTimeZone'=>'Europe/Moscow',
-'timeZone'=>'Europe/Moscow',
- 'decimalSeparator' => ',',
- 'thousandSeparator' => ' ',
- 'currencyCode' => 'EUR', ],
+        'dbsqlite' => $dbsqlite,
+        'db_finpix' => $db2,
+        'formatter' => [
+            'locale' => 'ru-RU',
+            'dateFormat' => 'dd.MM.yyyy',
+            'defaultTimeZone' => 'Europe/Moscow',
+            'timeZone' => 'Europe/Moscow',
+            'decimalSeparator' => ',',
+            'thousandSeparator' => ' ',
+            'currencyCode' => 'EUR',],
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,

@@ -83,6 +83,27 @@ use Yii;
  */
 class Receipt extends \yii\db\ActiveRecord
 {
+//    const DB_DATABASE1 = 'db';
+//    const DB_DATABASE2 = 'dbsqlite';
+//
+//    private static $db = self::DB_DATABASE1;
+
+//    public static function setDb($db)
+//    {
+//        self::$db = $db;
+//    }
+//
+//    public static function getDb()
+//    {
+//        switch (self::$db) {
+//            case self::DB_DATABASE1:
+//                return Yii::$app->db;
+//            case self::DB_DATABASE2:
+//                return Yii::$app->dbsqlite;
+//            default:
+//                throw new \Exception("Database is not selected");
+//        }
+//    }
     //  public  $icons;
     /**
      * {@inheritdoc}

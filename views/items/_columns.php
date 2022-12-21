@@ -116,6 +116,7 @@ return [
                 $images = $model->getImages();
                 //  foreach($images as $img) {
                 //retun url to full image
+                return '#строчкой ниже ошибка';
                 $a = Html::a(Html::img($images[0]->getUrl('30x30')), $images[0]->getUrl(), ['rel' => 'fancybox', 'title' => $model->name]);
                 return $a;
 //}

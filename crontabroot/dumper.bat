@@ -1,0 +1,1 @@
+mysqldump -uroot -p goods2 > C:\OSPanel26062022\domains\goods2\crontabroot\backup\dump.sql
