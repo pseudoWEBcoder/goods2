@@ -42,7 +42,7 @@ $this->registerJs($js);
              * @param $key integer
              * @return string
              */ function ($model, $key) {
-                 $total_sum =  $model->total_sum/100 ;
+                $total_sum = $model->total_sum / 100;
                 if ($total_sum > 2000)
                     return Html::tag('span', $model->formatedTotalSum, ['class' => 'text-danger']);
                 else if (($total_sum > 200) && ($total_sum < 2000))
@@ -59,7 +59,7 @@ $this->registerJs($js);
             }, 'format' => 'integer'
             ], ['label' => 'товары', 'value' => function ($model) {
                 $view = $_GET['view'] ?? 'table';
-                $items = $model->getItems()->select('sum(sum) as sum,sum(quantity) as quantity,  items.*')->orderBy(['sum' => SORT_DESC])->groupBy('name')->all();
+                $items = $model->items;
                 // $items = $model->getItems()->orderBy(['sum' => SORT_DESC])->all();
                 $map = \yii\helpers\ArrayHelper::map($items, 'id', 'name');
                 /** @var \app\models\Items $item */
