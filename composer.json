@@ -32,7 +32,10 @@
       "voskobovich/yii2-linker-behavior": "*",
       "warrence/yii2-kartikgii": "dev-master",
       "kartik-v/yii2-editors": "dev-master",
-      "execut/yii2-crud-fields": "^0.50.0"
+      "execut/yii2-crud-fields": "^0.50.0",
+      "kartik-v/yii2-slider": "^1.3",
+      "kartik-v/yii2-money": "^1.2",
+      "ext-json": "*"
     },
     "require-dev": {
       "yiisoft/yii2-debug": "~2.0.0",

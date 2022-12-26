@@ -202,4 +202,22 @@ class Items extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Receipt::class, ['id' => 'receipt_id']);
     }
+
+    public static function camelToId($arr)
+    {
+        $fields = [];
+        foreach ($arr as $index => $item) {
+
+            $line = preg_replace_callback(
+                '|([^a-z])|',
+                function ($matches) {
+                    return '_' . @strtolower($matches[0]);
+                },
+                $index
+            );
+            $line = yii\helpers\BaseInflector::camel2id($index, '_');
+            $fields[$line] = $item;
+        }
+        return $fields;
+    }
 }

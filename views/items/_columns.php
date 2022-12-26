@@ -222,7 +222,15 @@ return [
     // 'formatedPrice',
     'formatedSum',
 
-    ['attribute' => 'formatedTotalSum', 'group' => true],
+    [
+        'attribute' => 'receipt_total_sum',
+        'group' => true,
+        'value' => function ($model, $val, $key) {
+            return $model->formatedTotalSum;
+        },
+        'filterType' => GridView::FILTER_MONEY,
+
+    ],
     // 'receipt.date_time',
     [
         'group' => true,

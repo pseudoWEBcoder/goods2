@@ -8,9 +8,11 @@ use app\models\CommentSearch;
 use app\models\ItemCategory;
 use app\models\Items;
 use app\models\ItemStatuses;
+use app\models\Receipt;
 use app\models\searches\ItemsSearch;
 use kartik\grid\EditableColumnAction;
 use Yii;
+use yii\db\Expression;
 use yii\db\Query;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
@@ -108,10 +110,12 @@ class ItemsController extends Controller
         $searchModel = new ItemsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 //receipt.date_time
-
+        $stat = Receipt::find()->select(['max' => new Expression('MAX(total_sum)'), 'min' => new Expression('MIN(total_sum)')])->asArray()->one();
+        $stat['receipt_total_sum'] = $stat;
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'stat' => $stat
         ]);
     }
 

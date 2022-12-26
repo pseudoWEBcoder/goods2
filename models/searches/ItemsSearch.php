@@ -12,6 +12,9 @@ use yii\data\ActiveDataProvider;
 class ItemsSearch extends Items
 {
     public $receipt_date_time;
+    public $receipt_total_sum;
+    public $items_sum;
+
     /**
      * {@inheritdoc}
      */
@@ -20,7 +23,7 @@ class ItemsSearch extends Items
         return [
             [['id', 'created', 'updated', 'price', 'nds_sum', 'nds_rate', 'sum', 'receipt_id', 'nds18', 'nds10', 'calculation_type_sign', 'calculation_subject_sign', 'nds_no', 'payment_type', 'nds', 'nds_calculated10', 'nds_calculated18', 'payment_agent_by_product_type', 'product_type', 'excise', 'commit', 'category', 'place_id'], 'integer'],
             [['quantity'], 'number'],
-            [['name', 'modifiers', 'properties', 'status_id', 'nomenclature_code', 'unit', 'properties_item', 'provider_inn', 'product_code_data', 'product_code_data_error', 'receipt_date_time'], 'safe'],
+            [['name', 'modifiers', 'properties', 'status_id', 'nomenclature_code', 'unit', 'properties_item', 'provider_inn', 'product_code_data', 'product_code_data_error', 'receipt_date_time', 'receipt_total_sum', 'items_sum'], 'safe'],
         ];
     }
 

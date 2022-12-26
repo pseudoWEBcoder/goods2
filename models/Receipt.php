@@ -244,4 +244,22 @@ class Receipt extends \yii\db\ActiveRecord
     {
         return number_format((float)$this->total_sum / 100, 2, '.', ' ');
     }
+
+    public static function camelToId($arr)
+    {
+        $fields = [];
+        foreach ($arr as $index => $item) {
+
+            $line = preg_replace_callback(
+                '|([^a-z])|',
+                function ($matches) {
+                    return '_' . @strtolower($matches[0]);
+                },
+                $index
+            );
+            $line = yii\helpers\BaseInflector::camel2id($index, '_');
+            $fields[$line] = $item;
+        }
+        return $fields;
+    }
 }
